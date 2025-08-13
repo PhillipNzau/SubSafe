@@ -1,11 +1,13 @@
-<div class="w-full h-16 bg-primary-dark px-5">
-  <app-top-bar />
-</div>
-<div class="flex items-center">
-  <div class="w-[20vw] bg-primary h-[60vh]">
-    <app-navbar />
+<div class="shadow-lg">
+  <div class="w-full h-16 bg-primary-dark px-5">
+    <app-top-bar />
   </div>
-  <div class="text-textColor bg-amber-50 w-[70vw] h-[60vh] p-5">
-    <router-outlet />
+  <div class="flex items-center">
+    <div class="w-[20vw] bg-primary h-[60vh]">
+      <app-navbar />
+    </div>
+    <div class="text-textColor bg-white w-[70vw] h-[60vh] p-5">
+      <router-outlet />
+    </div>
   </div>
 </div>
