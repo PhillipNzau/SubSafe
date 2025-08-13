@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 })
 export class TopBar {
   router = inject(Router);
+
+  usr = JSON.parse(localStorage.getItem('subSfUsr') || '');
+  userDetails = signal<any>(this.usr);
   handleLogout() {
     localStorage.clear();
     this.router.navigate(['/auth']).then(() => {});
