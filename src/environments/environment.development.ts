@@ -13,7 +13,7 @@ export const environment = {
   ///////////////** CREDENTIALS URLS **///////////////////
   listCredentials: credentialsBaseUrl,
   listSingleCredential: credentialsBaseUrl + '/',
-  deleteCredential: credentialsBaseUrl,
+  deleteCredential: credentialsBaseUrl + '/',
   createCredential: credentialsBaseUrl,
   updateCredential: credentialsBaseUrl + '/',
   ///////////////** SUBSCRIPTION URLS **///////////////////

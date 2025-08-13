@@ -95,6 +95,30 @@ export class Credentials implements OnInit {
     });
   }
 
+  deleteCredential(credentialId: string) {
+    const loadingToast = this.toastService.loading('Processing...');
+
+    this.credentialService.deleteCredential(credentialId).subscribe({
+      next: (res: any) => {
+        loadingToast.close();
+        this.toastService.success(`Deleted credentials successfully!`, {
+          duration: 2000,
+        });
+
+        this.listCredentials();
+      },
+      error: (err) => {
+        loadingToast.close();
+        this.toastService.error(
+          `Something went wrong Deleting credentials! ${err.error.message}!!`,
+          {
+            duration: 2000,
+          }
+        );
+      },
+    });
+  }
+
   toggleAddModal() {
     this.isAddCredential.set(!this.isAddCredential());
   }

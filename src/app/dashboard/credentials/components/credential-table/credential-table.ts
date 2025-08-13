@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CredentialsResponseModel } from '../../models/credentials';
 
 @Component({
@@ -9,4 +9,9 @@ import { CredentialsResponseModel } from '../../models/credentials';
 })
 export class CredentialTable {
   @Input({ required: true }) credentialsData: CredentialsResponseModel[] = [];
+  @Output() deleteCredential = new EventEmitter<string>();
+
+  onDelete(id: string) {
+    this.deleteCredential.emit(id);
+  }
 }
