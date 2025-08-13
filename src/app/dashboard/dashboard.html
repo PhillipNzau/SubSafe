@@ -1,4 +1,11 @@
-<app-navbar />
-<div class="text-textColor px-10 py-11 2xl:mx-auto 2xl:w-[85%]">
-  <router-outlet />
+<div class="w-full h-14 bg-primary-dark">
+  <app-top-bar />
+</div>
+<div class="flex items-center">
+  <div class="w-[20vw] bg-primary h-[60vh]">
+    <app-navbar />
+  </div>
+  <div class="text-textColor bg-amber-50 w-[70vw] h-[60vh]">
+    <router-outlet />
+  </div>
 </div>

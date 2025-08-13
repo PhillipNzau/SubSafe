@@ -11,8 +11,8 @@
   --color-shadow: #f7f7f7;
 
   /* You can also define shades for your custom colors */
-  /* --color-primary-light: #ff8d73;
-  --color-primary-dark: #cc4529; */
+  /* --color-primary-light: #ff8d73; */
+  --color-primary-dark: #5b61f3;
 }
 
 * {
