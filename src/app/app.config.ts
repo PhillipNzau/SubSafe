@@ -12,6 +12,7 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { apiInterceptor } from './shared/services/api-interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withFetch(), withInterceptors([apiInterceptor])),
+    provideAnimations(),
     provideHotToastConfig({
       visibleToasts: 1,
       duration: 700,

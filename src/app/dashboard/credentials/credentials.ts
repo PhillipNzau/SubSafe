@@ -6,10 +6,17 @@ import { RouterModule } from '@angular/router';
 import { CredentialsService } from './services/credentials-serice';
 import { HotToastService } from '@ngneat/hot-toast';
 import { CredentialsResponseModel } from './models/credentials';
+import { Modal } from '../../shared/components/modal/modal';
 
 @Component({
   selector: 'app-credentials',
-  imports: [CredentialTable, CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [
+    CredentialTable,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    Modal,
+  ],
   templateUrl: './credentials.html',
   styleUrl: './credentials.css',
 })
@@ -19,6 +26,13 @@ export class Credentials implements OnInit {
   toastService = inject(HotToastService);
 
   credentials = signal<CredentialsResponseModel[]>([]);
+  isAddCredential = signal<boolean>(false);
+  passwordFieldType = signal<'password' | 'text'>('password');
+  categories = signal([
+    { id: '1', name: 'Streaming Service' },
+    { id: '2', name: 'Social Media' },
+    { id: '3', name: 'Finance' },
+  ]);
 
   credentialForm = this.fb.nonNullable.group({
     site_name: ['', [Validators.required]],
@@ -43,6 +57,8 @@ export class Credentials implements OnInit {
           this.toastService.success(`Created credential successfully!`, {
             duration: 2000,
           });
+          this.listCredentials();
+          this.toggleAddModal();
         },
         error: (err) => {
           this.toastService.error(
@@ -77,5 +93,14 @@ export class Credentials implements OnInit {
         );
       },
     });
+  }
+
+  toggleAddModal() {
+    this.isAddCredential.set(!this.isAddCredential());
+  }
+
+  togglePasswordVisibility() {
+    const current = this.passwordFieldType();
+    this.passwordFieldType.set(current === 'password' ? 'text' : 'password');
   }
 }
