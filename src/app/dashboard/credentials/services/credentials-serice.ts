@@ -12,8 +12,6 @@ import {
   providedIn: 'root',
 })
 export class CredentialsService {
-  private loggedIn = false;
-
   listCredentialsUrl = environment.listCredentials;
   listSingleCredentialUrl = environment.listSingleCredential;
   deleteCredentialUrl = environment.deleteCredential;
