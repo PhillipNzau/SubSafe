@@ -24,8 +24,31 @@
   </div>
 
   <!-- search -->
-  <div>
-    <input type="search" name="" id="" />
+  <div
+    class="flex bg-container items-center gap-1 py-2 px-3 rounded-xl text-text"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="opacity-75"
+    >
+      <path d="m21 21-4.34-4.34" />
+      <circle cx="11" cy="11" r="8" />
+    </svg>
+    <input
+      type="search"
+      name=""
+      id=""
+      placeholder="Search..."
+      class="w-[20vw] bg-transparent px-3 text-sm placeholder:opacity-70 outline-none"
+    />
   </div>
 
   <!-- profile -->
@@ -56,8 +79,8 @@
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="50"
-        height="50"
+        width="40"
+        height="40"
         viewBox="0 0 532 532"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         role="img"
@@ -88,8 +111,10 @@
       </svg>
     </div>
     <div class="">
-      <p>John Doe</p>
-      <p>Logout</p>
+      <p class="text-sm text-text">John Doe</p>
+      <p class="text-sm text-text hover:cursor-pointer hover:text-container">
+        Logout
+      </p>
     </div>
   </div>
 </div>

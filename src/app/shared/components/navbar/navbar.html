@@ -1,1 +1,42 @@
-<p>navbar works!</p>
+<ul class="text-text">
+  <li
+    [ngClass]="{
+      'bg-primary-light border-s-container border-s-[5px]':
+        isRouteActive('/credentials')
+    }"
+    routerLink="/credentials"
+    class="hover:bg-primary-light p-5 hover:border-s-container hover:border-s-[5px] transition-all duration-300 hover:cursor-pointer"
+  >
+    Credentials
+  </li>
+  <li
+    [ngClass]="{
+      'bg-primary-light border-s-container border-s-[5px]':
+        isRouteActive('/subscriptions')
+    }"
+    routerLink="/subscriptions"
+    class="hover:bg-primary-light p-5 hover:border-s-container hover:border-s-[5px] transition-all duration-300 hover:cursor-pointer"
+  >
+    Subscriptions
+  </li>
+  <li
+    [ngClass]="{
+      'bg-primary-light border-s-container border-s-[5px]':
+        isRouteActive('/analytics')
+    }"
+    routerLink="/analytics"
+    class="hover:bg-primary-light p-5 hover:border-s-container hover:border-s-[5px] transition-all duration-300 hover:cursor-pointer"
+  >
+    Analytics
+  </li>
+  <li
+    [ngClass]="{
+      'bg-primary-light border-s-container border-s-[5px]':
+        isRouteActive('/settings')
+    }"
+    routerLink="/settings"
+    class="hover:bg-primary-light p-5 hover:border-s-container hover:border-s-[5px] transition-all duration-300 hover:cursor-pointer"
+  >
+    Settings
+  </li>
+</ul>
