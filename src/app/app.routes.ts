@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { Auth } from './auth/auth';
+import { inject } from '@angular/core';
+import { Authservice } from './auth/shared/services/authservice';
 
 export const routes: Routes = [
   {
@@ -12,7 +14,7 @@ export const routes: Routes = [
       import('./dashboard/dashboard.routes').then(
         (mod) => mod.DASHBOARD_ROUTES
       ),
-    // canActivate: [() => inject(AuthService).isLoggedIn],
+    canActivate: [() => inject(Authservice).isLoggedIn],
   },
   {
     path: '**',

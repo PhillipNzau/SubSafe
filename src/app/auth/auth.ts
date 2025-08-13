@@ -11,6 +11,8 @@ import {
 } from '@angular/forms';
 import { Authservice } from './shared/services/authservice';
 import { passwordMatchValidator } from '../shared/services/password-validator';
+import { HotToastService } from '@ngneat/hot-toast';
+import { LoginUserModel } from './shared/models/users';
 @Component({
   selector: 'app-auth',
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
@@ -21,12 +23,13 @@ export class Auth {
   fb = inject(FormBuilder);
   route = inject(Router);
   authService = inject(Authservice);
+  toastService = inject(HotToastService);
 
-  loginForm = this.fb.group({
+  loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required], this.passwordValidator],
   });
-  signUpForm = this.fb.group(
+  signUpForm = this.fb.nonNullable.group(
     {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -61,56 +64,42 @@ export class Auth {
 
   // login user
   submitLoginForm() {
-    console.log('Login====================================');
-    console.log(this.loginForm.value);
-    console.log('====================================');
-    // const loadingToast = this.toastService.loading('Processing...');
-    // this.authService.loginUser(this.loginForm.value).subscribe({
-    //   next: (res) => {
-    //     this.route.navigate(['/dashboard']);
-    //     this.toastService.success(`Login success, Welcome!`, {
-    //       duration: 2000,
-    //     });
-    //   },
-    //   error: (err) => {
-    //     this.toastService.error(
-    //       `Something went wrong logging in! ${err.error.message}!!`,
-    //       {
-    //         duration: 2000,
-    //       },
-    //     );
-    //   },
-    // });
+    const loadingToast = this.toastService.loading('Processing...');
+    this.authService.loginUser(this.loginForm.value).subscribe({
+      next: (res) => {
+        this.route.navigate(['/credentials']);
+        this.toastService.success(`Login success, Welcome!`, {
+          duration: 2000,
+        });
+      },
+      error: (err) => {
+        this.toastService.error(
+          `Something went wrong logging in! ${err.error.message}!!`,
+          {
+            duration: 2000,
+          }
+        );
+      },
+    });
   }
 
   // register user
   submitSignupForm() {
-    console.log('Register====================================');
-    console.log(this.signUpForm.value);
-    console.log('====================================');
-    // this.authService.regesterUser(this.signUpForm.value).subscribe({
-    //   next: (res) => {
-    //     this.toastService.success(`User regestration success, Welcome!`, {
-    //       duration: 2000,
-    //     });
-    //     this.toggleSignup();
-    //   },
-    //   error: (err) => {
-    //     this.toastService.error(
-    //       `Something went wrong registering! ${err.error.message}!`,
-    //       {
-    //         duration: 2000,
-    //       },
-    //     );
-    //     // this.authService.addTenant(this.signUpForm.value).subscribe({
-    //     //   next: (res: any) => {
-    //     //     console.log('well', res);
-    //     //   },
-    //     //   error: (err: any) => {
-    //     //     console.error('tell', err);
-    //     //   },
-    //     // });
-    //   },
-    // });
+    this.authService.registerUser(this.signUpForm.value).subscribe({
+      next: (res) => {
+        this.toastService.success(`User registration success, Welcome!`, {
+          duration: 2000,
+        });
+        this.route.navigate(['/credentials']);
+      },
+      error: (err) => {
+        this.toastService.error(
+          `Something went wrong registering! ${err.error.message}!`,
+          {
+            duration: 2000,
+          }
+        );
+      },
+    });
   }
 }

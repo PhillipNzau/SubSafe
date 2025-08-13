@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+@use "@ngneat/hot-toast/src/styles/styles.scss";
 @import "tailwindcss";
-
 @theme {
   /* Define custom colors */
   --color-primary: #7378f5;
@@ -12,4 +13,8 @@
   /* You can also define shades for your custom colors */
   /* --color-primary-light: #ff8d73;
   --color-primary-dark: #cc4529; */
+}
+
+* {
+  font-family: "Poppins", sans-serif;
 }
