@@ -26,7 +26,9 @@ export class Credentials implements OnInit {
   toastService = inject(HotToastService);
 
   credentials = signal<CredentialsResponseModel[]>([]);
+  selectedCredentials = signal<CredentialsResponseModel | null>(null);
   isAddCredential = signal<boolean>(false);
+  isEditCredential = signal<boolean>(false);
   passwordFieldType = signal<'password' | 'text'>('password');
   categories = signal([
     { id: '1', name: 'Streaming Service' },
@@ -58,11 +60,38 @@ export class Credentials implements OnInit {
             duration: 2000,
           });
           this.listCredentials();
-          this.toggleAddModal();
+          this.toggleModal('add');
         },
         error: (err) => {
           this.toastService.error(
             `Something went wrong creating credential! ${err.error.message}!!`,
+            {
+              duration: 2000,
+            }
+          );
+        },
+      });
+  }
+
+  submitEditCredential() {
+    const loadingToast = this.toastService.loading('Processing...');
+    this.credentialService
+      .updateCredential(
+        this.credentialForm.value,
+        this.selectedCredentials()!.id
+      )
+      .subscribe({
+        next: (res) => {
+          loadingToast.close();
+          this.toastService.success(`Updated credential successfully!`, {
+            duration: 2000,
+          });
+          this.listCredentials();
+          this.toggleModal('edit');
+        },
+        error: (err) => {
+          this.toastService.error(
+            `Something went wrong updating credential! ${err.error.message}!!`,
             {
               duration: 2000,
             }
@@ -119,8 +148,26 @@ export class Credentials implements OnInit {
     });
   }
 
-  toggleAddModal() {
-    this.isAddCredential.set(!this.isAddCredential());
+  editCredential(credential: CredentialsResponseModel) {
+    this.selectedCredentials.set(credential);
+    this.credentialForm.patchValue({
+      site_name: credential.site_name,
+      username: credential.username,
+      password: credential.password,
+      login_url: credential.login_url,
+      notes: credential.notes,
+      category: credential.category,
+    });
+    this.toggleModal('edit');
+  }
+
+  toggleModal(type: string) {
+    type === 'edit'
+      ? this.isEditCredential.set(!this.isEditCredential())
+      : this.isAddCredential.set(!this.isAddCredential());
+    if (!this.isEditCredential()) {
+      this.credentialForm.reset();
+    }
   }
 
   togglePasswordVisibility() {

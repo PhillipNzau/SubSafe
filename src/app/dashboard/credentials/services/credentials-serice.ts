@@ -62,7 +62,7 @@ export class CredentialsService {
     credentialId: string
   ) {
     return this.http
-      .post<CredentialsResponseModel>(
+      .put<CredentialsResponseModel>(
         this.updateCredentialUrl + credentialId,
         credentialData
       )
