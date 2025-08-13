@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CredentialTable } from './components/credential-table/credential-table';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CredentialsService } from './services/credentials-serice';
 import { HotToastService } from '@ngneat/hot-toast';
+import { CredentialsResponseModel } from './models/credentials';
 
 @Component({
   selector: 'app-credentials',
@@ -16,6 +17,8 @@ export class Credentials implements OnInit {
   fb = inject(FormBuilder);
   credentialService = inject(CredentialsService);
   toastService = inject(HotToastService);
+
+  credentials = signal<CredentialsResponseModel[]>([]);
 
   credentialForm = this.fb.nonNullable.group({
     site_name: ['', [Validators.required]],
@@ -36,6 +39,7 @@ export class Credentials implements OnInit {
       .createCredential(this.credentialForm.value)
       .subscribe({
         next: (res) => {
+          loadingToast.close();
           this.toastService.success(`Created credential successfully!`, {
             duration: 2000,
           });
@@ -53,13 +57,18 @@ export class Credentials implements OnInit {
 
   listCredentials() {
     const loadingToast = this.toastService.loading('Processing...');
+
     this.credentialService.listCredentials().subscribe({
-      next: (res) => {
+      next: (res: any) => {
+        loadingToast.close();
         this.toastService.success(`Fetched credentials successfully!`, {
           duration: 2000,
         });
+
+        this.credentials.set(res);
       },
       error: (err) => {
+        loadingToast.close();
         this.toastService.error(
           `Something went wrong Fetching credentials! ${err.error.message}!!`,
           {

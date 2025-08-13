@@ -11,13 +11,14 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
+import { apiInterceptor } from './shared/services/api-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(withFetch(), withInterceptors([])),
+    provideHttpClient(withFetch(), withInterceptors([apiInterceptor])),
     provideHotToastConfig({
       visibleToasts: 1,
       duration: 700,

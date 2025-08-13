@@ -26,9 +26,7 @@ export class CredentialsService {
   listCredentials() {
     return this.http.get(this.listCredentialsUrl).pipe(
       map((res) => {
-        console.log('====================================');
-        console.log(res);
-        console.log('====================================');
+        return res;
       })
     );
   }
@@ -36,9 +34,7 @@ export class CredentialsService {
   getSingleCredential(credentialId: string) {
     return this.http.get(this.listSingleCredentialUrl + credentialId).pipe(
       map((res) => {
-        console.log('====================================');
-        console.log(res);
-        console.log('====================================');
+        return res;
       })
     );
   }
@@ -46,9 +42,7 @@ export class CredentialsService {
   deleteCredential(credentialId: string) {
     return this.http.delete(this.deleteCredentialUrl + credentialId).pipe(
       map((res) => {
-        console.log('====================================');
-        console.log(res);
-        console.log('====================================');
+        return res;
       })
     );
   }
@@ -58,9 +52,7 @@ export class CredentialsService {
       .post<CredentialsResponseModel>(this.createCredentialUrl, credentialData)
       .pipe(
         map((res) => {
-          console.log('====================================');
-          console.log(res);
-          console.log('====================================');
+          return res;
         })
       );
   }
@@ -76,9 +68,7 @@ export class CredentialsService {
       )
       .pipe(
         map((res) => {
-          console.log('====================================');
-          console.log(res);
-          console.log('====================================');
+          return res;
         })
       );
   }
