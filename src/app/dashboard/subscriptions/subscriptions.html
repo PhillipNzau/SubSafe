@@ -20,7 +20,7 @@
     </button>
   </div>
 
-  <div>
+  <!-- <div>
     <button
       class="flex items-center gap-4 justify-between bg-primary py-1 rounded-md text-container h-8 px-3 text-sm hover:cursor-pointer"
     >
@@ -42,12 +42,12 @@
       </svg>
       Filter
     </button>
-  </div>
+  </div> -->
 </div>
 
 <div class="overflow-hidden">
   <app-subscription-table
-    (deleteSubscription)="deleteSubscription($event)"
+    (deleteSubscription)="setDeleteSubscription($event)"
     (editSubscription)="editSubscription($event)"
     [subscriptionsData]="subscriptions()"
   />
@@ -198,11 +198,92 @@
             "
             class="bg-primary py-1 rounded-2xl text-container h-8 px-6 text-sm"
           >
-            {{ isAddSubscription() ? "Add" : "Update" }}
+            {{
+              isSubmitting()
+                ? "Submitting..."
+                : isAddSubscription()
+                ? "Add"
+                : "Update"
+            }}
           </button>
         </div>
       </form>
     </div>
   </div>
 </app-modal>
+} @if (isDeleteModal()) {
+<app-modal (backdropClick)="toggleDeleteModal()">
+  <div class="w-full space-y-4 rounded-md bg-white p-5">
+    <div class="flex items-center justify-between">
+      <p class="text-2xl font-bold">Delete Subscription</p>
+      <button type="button" (click)="toggleDeleteModal()">
+        <svg
+          width="37"
+          height="36"
+          viewBox="0 0 37 36"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="18.5" cy="18" r="18" fill="#7500D5" fill-opacity="0.2" />
+          <path
+            d="M24.7821 12.4329C24.6062 12.2566 24.3675 12.1576 24.1185 12.1576C23.8696 12.1576 23.6308 12.2566 23.455 12.4329L18.8527 17.0258L14.2503 12.4235C14.0745 12.2472 13.8357 12.1482 13.5868 12.1482C13.3378 12.1482 13.0991 12.2472 12.9232 12.4235C12.5562 12.7905 12.5562 13.3835 12.9232 13.7505L17.5256 18.3529L12.9232 22.9552C12.5562 23.3223 12.5562 23.9152 12.9232 24.2823C13.2903 24.6494 13.8832 24.6494 14.2503 24.2823L18.8527 19.6799L23.455 24.2823C23.8221 24.6494 24.415 24.6494 24.7821 24.2823C25.1491 23.9152 25.1491 23.3223 24.7821 22.9552L20.1797 18.3529L24.7821 13.7505C25.1397 13.3929 25.1397 12.7905 24.7821 12.4329Z"
+            fill="#7500D5"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex flex-col items-center gap-4 text-center">
+      <div class="size-20">
+        <svg
+          width="80"
+          height="80"
+          viewBox="0 0 165 165"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M82.1777 164.355C127.563 164.355 164.355 127.563 164.355 82.1777C164.355 36.7922 127.563 0 82.1777 0C36.7922 0 0 36.7922 0 82.1777C0 127.563 36.7922 164.355 82.1777 164.355Z"
+            fill="#FF222E"
+            fill-opacity="0.15"
+          />
+          <path
+            d="M45.5996 60.0066C45.5996 58.3937 46.9353 57.0863 48.5831 57.0863H68.1591C68.1857 53.6469 68.5584 48.9319 71.9716 45.6679C74.6577 43.0991 78.3402 41.5112 82.3956 41.5112C86.451 41.5112 90.1335 43.0991 92.8195 45.6679C96.2327 48.9319 96.6054 53.6469 96.632 57.0863H116.208C117.856 57.0863 119.192 58.3937 119.192 60.0066C119.192 61.6194 117.856 62.9269 116.208 62.9269H48.5831C46.9353 62.9269 45.5996 61.6194 45.5996 60.0066Z"
+            fill="#FF222E"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M80.7422 123.28H84.049C95.4259 123.28 101.114 123.28 104.813 119.658C108.512 116.036 108.89 110.095 109.647 98.2118L110.737 81.0898C111.148 74.6424 111.353 71.4187 109.498 69.3758C107.642 67.333 104.509 67.333 98.2422 67.333H66.549C60.2823 67.333 57.149 67.333 55.2935 69.3758C53.4381 71.4187 53.6434 74.6424 54.054 81.0898L55.1445 98.2118C55.9012 110.095 56.2796 116.036 59.9782 119.658C63.6768 123.28 69.3653 123.28 80.7422 123.28ZM75.2256 83.1663C75.0571 81.3925 73.5545 80.0983 71.8694 80.2757C70.1843 80.4531 68.9549 82.0348 69.1234 83.8086L71.1676 105.327C71.3361 107.1 72.8387 108.395 74.5238 108.217C76.2089 108.04 77.4383 106.458 77.2698 104.684L75.2256 83.1663ZM92.9218 80.2757C94.6069 80.4531 95.8363 82.0348 95.6678 83.8086L93.6236 105.327C93.4551 107.1 91.9525 108.395 90.2674 108.217C88.5823 108.04 87.3529 106.458 87.5214 104.684L89.5656 83.1663C89.7341 81.3925 91.2367 80.0983 92.9218 80.2757Z"
+            fill="#FF222E"
+          />
+        </svg>
+      </div>
+
+      <p class="text-primaryGrayTextColor">
+        You’re about to delete the
+        <span class="font-bold text-slate-900">{{
+          selectedSubscriptions()?.service_name
+        }}</span>
+        subscription permananently?. Are you sure?
+      </p>
+
+      <div class="flex w-full justify-between py-4">
+        <button
+          class="mb-2 h-[40px] w-[145px] rounded-xl border border-primaryRed px-6 text-sm font-medium leading-none text-primaryRed hover:bg-primaryRed hover:text-container focus:outline-none focus:ring-2 focus:ring-primaryRed focus:ring-offset-2 hover:bg-rose-500 hover:cursor-pointer"
+          (click)="toggleDeleteModal()"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="deleteSubscription(selectedSubscriptions()!.id)"
+          class="mb-2 h-[40px] w-[145px] rounded-xl bg-setColor px-6 text-sm font-medium leading-none text-container hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 bg-primary hover:cursor-pointer"
+        >
+          {{ isSubmitting() ? "Deleting.." : "Delete" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</app-modal>
+
 }

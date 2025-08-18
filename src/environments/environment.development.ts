@@ -20,7 +20,7 @@ export const environment = {
   ///////////////** SUBSCRIPTION URLS **///////////////////
   listSubscriptions: subscriptionsBaseUrl,
   listSingleSubscription: subscriptionsBaseUrl + '/',
-  deleteSubscription: subscriptionsBaseUrl,
+  deleteSubscription: subscriptionsBaseUrl + '/',
   createSubscription: subscriptionsBaseUrl,
   updateSubscription: subscriptionsBaseUrl + '/',
 };

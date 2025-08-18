@@ -30,6 +30,7 @@ export class Subscriptions implements OnInit {
   isAddSubscription = signal<boolean>(false);
   isEditSubscription = signal<boolean>(false);
   passwordFieldType = signal<'password' | 'text'>('password');
+  isSubmitting = signal<boolean>(false);
 
   subscriptionForm = this.fb.nonNullable.group({
     service_name: ['', [Validators.required]],
@@ -48,6 +49,7 @@ export class Subscriptions implements OnInit {
 
   submitCreateSubscriptions() {
     const loadingToast = this.toastService.loading('Processing...');
+    this.isSubmitting.set(true);
     this.subscriptionsService
       .createSubscription(this.subscriptionForm.value)
       .subscribe({
@@ -58,6 +60,7 @@ export class Subscriptions implements OnInit {
           });
           this.listSubscriptions();
           this.toggleModal('add');
+          this.isSubmitting.set(false);
         },
         error: (err) => {
           this.toastService.error(
@@ -66,12 +69,15 @@ export class Subscriptions implements OnInit {
               duration: 2000,
             }
           );
+          this.isSubmitting.set(false);
         },
       });
   }
 
   submitEditSubscription() {
     const loadingToast = this.toastService.loading('Processing...');
+    this.isSubmitting.set(true);
+
     this.subscriptionsService
       .updateSubscription(
         this.subscriptionForm.value,
@@ -85,6 +91,7 @@ export class Subscriptions implements OnInit {
           });
           this.listSubscriptions();
           this.toggleModal('edit');
+          this.isSubmitting.set(false);
         },
         error: (err) => {
           this.toastService.error(
@@ -93,6 +100,7 @@ export class Subscriptions implements OnInit {
               duration: 2000,
             }
           );
+          this.isSubmitting.set(false);
         },
       });
   }
@@ -123,6 +131,7 @@ export class Subscriptions implements OnInit {
 
   deleteSubscription(subscriptionId: string) {
     const loadingToast = this.toastService.loading('Processing...');
+    this.isSubmitting.set(true);
 
     this.subscriptionsService.deleteSubscription(subscriptionId).subscribe({
       next: (res: any) => {
@@ -132,6 +141,8 @@ export class Subscriptions implements OnInit {
         });
 
         this.listSubscriptions();
+        this.isSubmitting.set(false);
+        this.toggleDeleteModal();
       },
       error: (err) => {
         loadingToast.close();
@@ -141,6 +152,7 @@ export class Subscriptions implements OnInit {
             duration: 2000,
           }
         );
+        this.isSubmitting.set(false);
       },
     });
   }
@@ -173,5 +185,15 @@ export class Subscriptions implements OnInit {
   togglePasswordVisibility() {
     const current = this.passwordFieldType();
     this.passwordFieldType.set(current === 'password' ? 'text' : 'password');
+  }
+
+  isDeleteModal = signal<boolean>(false);
+  toggleDeleteModal() {
+    this.isDeleteModal.set(!this.isDeleteModal());
+  }
+
+  setDeleteSubscription(subscription: SubscriptionsResponseModel) {
+    this.selectedSubscriptions.set(subscription);
+    this.toggleDeleteModal();
   }
 }

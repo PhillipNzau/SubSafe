@@ -9,11 +9,11 @@ import { CredentialsResponseModel } from '../../models/credentials';
 })
 export class CredentialTable {
   @Input({ required: true }) credentialsData: CredentialsResponseModel[] = [];
-  @Output() deleteCredential = new EventEmitter<string>();
+  @Output() deleteCredential = new EventEmitter<any>();
   @Output() editCredential = new EventEmitter<any>();
 
-  onDelete(id: string) {
-    this.deleteCredential.emit(id);
+  onDelete(credential: any) {
+    this.deleteCredential.emit(credential);
   }
   onEdit(credential: any) {
     this.editCredential.emit(credential);

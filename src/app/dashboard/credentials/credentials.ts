@@ -29,6 +29,7 @@ export class Credentials implements OnInit {
   selectedCredentials = signal<CredentialsResponseModel | null>(null);
   isAddCredential = signal<boolean>(false);
   isEditCredential = signal<boolean>(false);
+  isSubmitting = signal<boolean>(false);
   passwordFieldType = signal<'password' | 'text'>('password');
   categories = signal([
     { id: '1', name: 'Streaming Service' },
@@ -50,6 +51,8 @@ export class Credentials implements OnInit {
   }
 
   submitCreateCredentials() {
+    this.isSubmitting.set(true);
+
     const loadingToast = this.toastService.loading('Processing...');
     this.credentialService
       .createCredential(this.credentialForm.value)
@@ -61,6 +64,7 @@ export class Credentials implements OnInit {
           });
           this.listCredentials();
           this.toggleModal('add');
+          this.isSubmitting.set(false);
         },
         error: (err) => {
           this.toastService.error(
@@ -69,11 +73,14 @@ export class Credentials implements OnInit {
               duration: 2000,
             }
           );
+          this.isSubmitting.set(false);
         },
       });
   }
 
   submitEditCredential() {
+    this.isSubmitting.set(true);
+
     const loadingToast = this.toastService.loading('Processing...');
     this.credentialService
       .updateCredential(
@@ -88,6 +95,7 @@ export class Credentials implements OnInit {
           });
           this.listCredentials();
           this.toggleModal('edit');
+          this.isSubmitting.set(false);
         },
         error: (err) => {
           this.toastService.error(
@@ -96,6 +104,7 @@ export class Credentials implements OnInit {
               duration: 2000,
             }
           );
+          this.isSubmitting.set(false);
         },
       });
   }
@@ -105,12 +114,12 @@ export class Credentials implements OnInit {
 
     this.credentialService.listCredentials().subscribe({
       next: (res: any) => {
-        loadingToast.close();
         this.toastService.success(`Fetched credentials successfully!`, {
           duration: 2000,
         });
 
         this.credentials.set(res);
+        loadingToast.close();
       },
       error: (err) => {
         loadingToast.close();
@@ -126,15 +135,19 @@ export class Credentials implements OnInit {
 
   deleteCredential(credentialId: string) {
     const loadingToast = this.toastService.loading('Processing...');
+    this.isSubmitting.set(true);
 
     this.credentialService.deleteCredential(credentialId).subscribe({
       next: (res: any) => {
+        this.isSubmitting.set(false);
+
         loadingToast.close();
         this.toastService.success(`Deleted credentials successfully!`, {
           duration: 2000,
         });
 
         this.listCredentials();
+        this.toggleDeleteModal();
       },
       error: (err) => {
         loadingToast.close();
@@ -144,6 +157,8 @@ export class Credentials implements OnInit {
             duration: 2000,
           }
         );
+        this.isSubmitting.set(false);
+        this.toggleDeleteModal();
       },
     });
   }
@@ -173,5 +188,15 @@ export class Credentials implements OnInit {
   togglePasswordVisibility() {
     const current = this.passwordFieldType();
     this.passwordFieldType.set(current === 'password' ? 'text' : 'password');
+  }
+
+  isDeleteModal = signal<boolean>(false);
+  toggleDeleteModal() {
+    this.isDeleteModal.set(!this.isDeleteModal());
+  }
+
+  setDeleteSubscription(credential: CredentialsResponseModel) {
+    this.selectedCredentials.set(credential);
+    this.toggleDeleteModal();
   }
 }

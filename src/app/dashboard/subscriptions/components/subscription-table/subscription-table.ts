@@ -10,11 +10,11 @@ import { SubscriptionsResponseModel } from '../../models/subscriptions-model';
 export class SubscriptionTable {
   @Input({ required: true }) subscriptionsData: SubscriptionsResponseModel[] =
     [];
-  @Output() deleteSubscription = new EventEmitter<string>();
+  @Output() deleteSubscription = new EventEmitter<any>();
   @Output() editSubscription = new EventEmitter<any>();
 
-  onDelete(id: string) {
-    this.deleteSubscription.emit(id);
+  onDelete(credential: any) {
+    this.deleteSubscription.emit(credential);
   }
   onEdit(credential: any) {
     this.editSubscription.emit(credential);
