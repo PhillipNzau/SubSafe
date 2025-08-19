@@ -1,4 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +15,13 @@ import { Router } from '@angular/router';
   styleUrl: './top-bar.css',
 })
 export class TopBar {
+  @Output() toggleNav = new EventEmitter<any>();
+  @Input({ required: true }) isOpen: any;
+
+  onToggle() {
+    this.isOpen = !this.isOpen;
+    this.toggleNav.emit(this.isOpen);
+  }
   router = inject(Router);
 
   usr = JSON.parse(localStorage.getItem('subSfUsr') || '');

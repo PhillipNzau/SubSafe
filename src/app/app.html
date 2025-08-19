@@ -1,9 +1,11 @@
-<div class="relative min-h-screen">
+<div class="md:relative min-h-screen">
   <!-- Purple background -->
-  <div class="bg-secondary h-screen w-[30vw]"></div>
+  <div class="hidden md:block bg-secondary h-screen w-[30vw]"></div>
 
   <!-- Light background content container -->
-  <div class="absolute top-0 left-0 w-full flex justify-center pt-60">
+  <div
+    class="md:absolute md:top-0 md:left-0 w-full md:flex justify-center md:pt-60"
+  >
     <router-outlet />
   </div>
 </div>

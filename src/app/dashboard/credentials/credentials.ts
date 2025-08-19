@@ -41,7 +41,15 @@ export class Credentials implements OnInit {
     site_name: ['', [Validators.required]],
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
-    login_url: ['', [Validators.required]],
+    login_url: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(
+          /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/
+        ),
+      ],
+    ],
     notes: ['', [Validators.required]],
     category: ['', [Validators.required]],
   });

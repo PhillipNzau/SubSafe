@@ -1,12 +1,16 @@
-<div class="shadow-lg">
+<div class="shadow-lg w-full h-screen">
   <div class="w-full h-16 bg-primary-dark px-5">
-    <app-top-bar />
+    <app-top-bar (toggleNav)="toggleNav($event)" [isOpen]="status()" />
   </div>
   <div class="flex items-center">
-    <div class="w-[20vw] bg-primary h-[60vh]">
-      <app-navbar />
+    <div
+      [ngClass]="{ hidden: !status() }"
+      class="w-screen md:w-[20vw] bg-primary h-screen md:h-[60vh]"
+    >
+      <app-navbar (toggleNav)="toggleNav($event)" [isOpen]="status()" />
     </div>
-    <div class="text-textColor bg-white w-[70vw] h-[60vh] p-5">
+
+    <div class="text-textColor bg-white w-[70vw] h-screen md:h-[60vh] p-5">
       <router-outlet />
     </div>
   </div>
