@@ -1,4 +1,4 @@
-<div class="shadow-lg w-full h-screen">
+<div class="shadow-lg w-full md:h-[60vh] overflow-hidden">
   <div class="w-full h-16 bg-primary-dark px-5">
     <app-top-bar (toggleNav)="toggleNav($event)" [isOpen]="status()" />
   </div>
@@ -10,7 +10,9 @@
       <app-navbar (toggleNav)="toggleNav($event)" [isOpen]="status()" />
     </div>
 
-    <div class="text-textColor bg-white w-[70vw] h-screen md:h-[60vh] p-5">
+    <div
+      class="text-textColor bg-white md:w-[70vw] w-screen overflow-hidden h-screen md:h-[60vh] p-5"
+    >
       <router-outlet />
     </div>
   </div>
