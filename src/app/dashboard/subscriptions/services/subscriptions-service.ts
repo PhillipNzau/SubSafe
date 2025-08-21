@@ -23,7 +23,7 @@ export class SubscriptionsService {
   http = inject(HttpClient);
 
   listSubscriptions() {
-    return this.http.get(this.listSingleSubscriptionUrl).pipe(
+    return this.http.get(this.listSubscriptionsUrl).pipe(
       map((res) => {
         return res;
       })
