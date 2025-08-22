@@ -1,5 +1,5 @@
-// const url = 'http://localhost:8080/';
-const url = 'https://go-vault.onrender.com/';
+const url = 'http://localhost:8080/';
+// const url = 'https://go-vault.onrender.com/';
 
 const authBaseUrl = url + 'auth/';
 const credentialsBaseUrl = url + 'credentials';
@@ -11,6 +11,7 @@ export const environment = {
   ///////////////** USER URLS **///////////////////
   loginUser: authBaseUrl + 'login',
   registerUser: authBaseUrl + 'register',
+  refreshToken: authBaseUrl + 'refresh',
   ///////////////** CREDENTIALS URLS **///////////////////
   listCredentials: credentialsBaseUrl,
   listSingleCredential: credentialsBaseUrl + '/',

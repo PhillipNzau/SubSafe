@@ -17,6 +17,7 @@ export interface UserModel {
 }
 export interface LoginUserResponseModel {
   status: number;
-  token: string;
+  access_token: string;
+  refresh_token: string;
   user: UserModel;
 }

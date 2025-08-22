@@ -16,6 +16,7 @@ export class Authservice {
 
   loginUserUrl = environment.loginUser;
   registerUserUrl = environment.registerUser;
+  refreshTokenUrl = environment.refreshToken;
 
   router = inject(Router);
   http = inject(HttpClient);
@@ -28,7 +29,8 @@ export class Authservice {
         map((res) => {
           if (res.status === 200) {
             localStorage.setItem('subSfUsr', JSON.stringify(res.user));
-            localStorage.setItem('subSfTk', JSON.stringify(res.token));
+            localStorage.setItem('subSfTk', JSON.stringify(res.access_token));
+            localStorage.setItem('subSfRTk', JSON.stringify(res.refresh_token));
             localStorage.setItem('cnLgSubSf', 'true');
             this.loggedIn = !!localStorage.getItem('cnLgSubSf');
 
@@ -48,7 +50,8 @@ export class Authservice {
         map((res) => {
           if (res.status === 200) {
             localStorage.setItem('subSfUsr', JSON.stringify(res.user));
-            localStorage.setItem('subSfTk', JSON.stringify(res.token));
+            localStorage.setItem('subSfTk', JSON.stringify(res.access_token));
+            localStorage.setItem('subSfRTk', JSON.stringify(res.refresh_token));
             localStorage.setItem('cnLgSubSf', 'true');
             this.loggedIn = !!localStorage.getItem('cnLgSubSf');
 
@@ -57,6 +60,25 @@ export class Authservice {
           return res;
         })
       );
+  }
+
+  refreshToken(refresh: string) {
+    const body = {
+      refresh_token: refresh,
+    };
+    return this.http.post<any>(this.refreshTokenUrl, body).pipe(
+      map((res) => {
+        if (res.status === 200) {
+          localStorage.setItem('subSfTk', JSON.stringify(res.access_token));
+          localStorage.setItem('subSfRTk', JSON.stringify(res.refresh_token));
+          localStorage.setItem('cnLgSubSf', 'true');
+          this.loggedIn = !!localStorage.getItem('cnLgSubSf');
+
+          return res;
+        }
+        return res;
+      })
+    );
   }
 
   // Returns true when user is loged in and email is verified
