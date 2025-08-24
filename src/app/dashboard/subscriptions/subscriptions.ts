@@ -48,8 +48,9 @@ export class Subscriptions implements OnInit {
   }
 
   submitCreateSubscriptions() {
-    const loadingToast = this.toastService.loading('Processing...');
     this.isSubmitting.set(true);
+
+    const loadingToast = this.toastService.loading('Processing...');
     this.subscriptionsService
       .createSubscription(this.subscriptionForm.value)
       .subscribe({
@@ -59,7 +60,8 @@ export class Subscriptions implements OnInit {
             duration: 2000,
           });
           this.listSubscriptions();
-          this.toggleModal('add');
+          // this.toggleModal('add');
+          this.isAddSubscription.set(false);
           this.isSubmitting.set(false);
         },
         error: (err) => {
@@ -75,8 +77,9 @@ export class Subscriptions implements OnInit {
   }
 
   submitEditSubscription() {
-    const loadingToast = this.toastService.loading('Processing...');
     this.isSubmitting.set(true);
+
+    const loadingToast = this.toastService.loading('Processing...');
 
     this.subscriptionsService
       .updateSubscription(
@@ -90,7 +93,8 @@ export class Subscriptions implements OnInit {
             duration: 2000,
           });
           this.listSubscriptions();
-          this.toggleModal('edit');
+          this.isEditSubscription.set(false);
+          this.subscriptionForm.reset();
           this.isSubmitting.set(false);
         },
         error: (err) => {

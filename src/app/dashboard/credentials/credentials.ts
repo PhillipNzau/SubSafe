@@ -71,7 +71,7 @@ export class Credentials implements OnInit {
             duration: 2000,
           });
           this.listCredentials();
-          this.toggleModal('add');
+          this.isAddCredential.set(false);
           this.isSubmitting.set(false);
         },
         error: (err) => {
@@ -102,7 +102,8 @@ export class Credentials implements OnInit {
             duration: 2000,
           });
           this.listCredentials();
-          this.toggleModal('edit');
+          this.isEditCredential.set(false);
+          this.credentialForm.reset();
           this.isSubmitting.set(false);
         },
         error: (err) => {
@@ -188,6 +189,7 @@ export class Credentials implements OnInit {
     type === 'edit'
       ? this.isEditCredential.set(!this.isEditCredential())
       : this.isAddCredential.set(!this.isAddCredential());
+
     if (!this.isEditCredential()) {
       this.credentialForm.reset();
     }
