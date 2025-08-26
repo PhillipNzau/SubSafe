@@ -241,8 +241,6 @@ export class Subscriptions implements OnInit {
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      console.log('Selected file:', file);
-      // 👉 upload or process file here
       this.importSubscriptions(file);
     }
   }
@@ -253,7 +251,6 @@ export class Subscriptions implements OnInit {
 
     this.subscriptionsService.importSubscriptions(formData).subscribe({
       next: (res) => {
-        console.log('Imported successfully:', res);
         this.listSubscriptions();
       },
       error: (err) => {

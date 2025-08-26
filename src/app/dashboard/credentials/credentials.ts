@@ -250,8 +250,6 @@ export class Credentials implements OnInit {
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      console.log('Selected file:', file);
-      // 👉 upload or process file here
       this.importSubscriptions(file);
     }
   }
@@ -262,7 +260,6 @@ export class Credentials implements OnInit {
 
     this.credentialService.importCredentials(formData).subscribe({
       next: (res) => {
-        console.log('Imported successfully:', res);
         this.listCredentials();
       },
       error: (err) => {
