@@ -17,6 +17,7 @@ export class Authservice {
   loginUserUrl = environment.loginUser;
   registerUserUrl = environment.registerUser;
   refreshTokenUrl = environment.refreshToken;
+  verifyOtpUrl = environment.verifyOtp;
 
   router = inject(Router);
   http = inject(HttpClient);
@@ -28,12 +29,6 @@ export class Authservice {
       .pipe(
         map((res) => {
           if (res.status === 200) {
-            localStorage.setItem('subSfUsr', JSON.stringify(res.user));
-            localStorage.setItem('subSfTk', JSON.stringify(res.access_token));
-            localStorage.setItem('subSfRTk', JSON.stringify(res.refresh_token));
-            localStorage.setItem('cnLgSubSf', 'true');
-            this.loggedIn = !!localStorage.getItem('cnLgSubSf');
-
             return res;
           }
 
@@ -49,12 +44,6 @@ export class Authservice {
       .pipe(
         map((res) => {
           if (res.status === 200) {
-            localStorage.setItem('subSfUsr', JSON.stringify(res.user));
-            localStorage.setItem('subSfTk', JSON.stringify(res.access_token));
-            localStorage.setItem('subSfRTk', JSON.stringify(res.refresh_token));
-            localStorage.setItem('cnLgSubSf', 'true');
-            this.loggedIn = !!localStorage.getItem('cnLgSubSf');
-
             return res;
           }
           return res;
@@ -69,6 +58,23 @@ export class Authservice {
     return this.http.post<any>(this.refreshTokenUrl, body).pipe(
       map((res) => {
         if (res.status === 200) {
+          localStorage.setItem('subSfTk', JSON.stringify(res.access_token));
+          localStorage.setItem('subSfRTk', JSON.stringify(res.refresh_token));
+          localStorage.setItem('cnLgSubSf', 'true');
+          this.loggedIn = !!localStorage.getItem('cnLgSubSf');
+
+          return res;
+        }
+        return res;
+      })
+    );
+  }
+
+  verifyOtp(otpBody: any) {
+    return this.http.post<any>(this.verifyOtpUrl, otpBody).pipe(
+      map((res) => {
+        if (res.status === 200) {
+          localStorage.setItem('subSfUsr', JSON.stringify(res.user));
           localStorage.setItem('subSfTk', JSON.stringify(res.access_token));
           localStorage.setItem('subSfRTk', JSON.stringify(res.refresh_token));
           localStorage.setItem('cnLgSubSf', 'true');
