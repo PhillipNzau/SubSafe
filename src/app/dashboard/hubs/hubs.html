@@ -1,38 +1,38 @@
 <!-- <div class="flex gap-4 items-center justify-between"> -->
 <div class="flex items-center justify-between gap-4 text-text">
-  <h1 class="font-semibold text-lg">Subscriptions</h1>
+  <h1 class="font-semibold text-lg">Resources</h1>
 
   <div class="flex gap-2">
     <button
       (click)="toggleModal('add')"
       class="bg-primary py-1 rounded-md text-container text-xs md:h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
     >
-      Add Subscription
+      Add Resource
     </button>
     <div>
       <!-- Hidden file input -->
-      <input
+      <!-- <input
         type="file"
         #fileInput
         accept=".csv,.xlsx"
         class="hidden"
         (change)="onFileSelected($event)"
-      />
+      /> -->
 
       <!-- Button -->
-      <button
+      <!-- <button
         (click)="fileInput.click()"
         class="bg-primary py-1 rounded-md text-container h-8 px-6 text-sm hover:cursor-pointer"
       >
         Import Subscriptions
-      </button>
+      </button> -->
     </div>
-    <button
+    <!-- <button
       (click)="exportSubscriptions()"
       class="bg-primary py-1 rounded-md text-container h-8 px-6 text-sm hover:cursor-pointer"
     >
       Export Subscriptions (Excel)
-    </button>
+    </button> -->
   </div>
 </div>
 
@@ -62,27 +62,25 @@
 <!-- </div> -->
 
 <div class="overflow-hidden">
-  <app-subscription-table
-    (deleteSubscription)="setDeleteSubscription($event)"
-    (editSubscription)="editSubscription($event)"
-    [subscriptionsData]="subscriptions()"
+  <app-hub-table
+    (deleteResource)="setDeleteHub($event)"
+    (editResource)="editHub($event)"
+    [hubData]="hubs()"
   />
 </div>
 
-@if(isAddSubscription() || isEditSubscription()) {
+@if(isAddHub() || isEditHub()) {
 <app-modal
-  (backdropClick)="
-    isAddSubscription() ? toggleModal('add') : toggleModal('edit')
-  "
+  (backdropClick)="isAddHub() ? toggleModal('add') : toggleModal('edit')"
 >
   <div class="md:w-[50vw] space-y-4 rounded-md bg-white p-5">
     <div class="flex items-center justify-between">
       <p class="text-lg font-bold">
-        {{ isAddSubscription() ? "Add" : "Edit" }} Subscription
+        {{ isAddHub() ? "Add" : "Edit" }} Resource
       </p>
       <button
         type="button"
-        (click)="isAddSubscription() ? toggleModal('add') : toggleModal('edit')"
+        (click)="isAddHub() ? toggleModal('add') : toggleModal('edit')"
       >
         <svg
           width="37"
@@ -101,80 +99,41 @@
     </div>
 
     <div>
-      <form [formGroup]="subscriptionForm" class="space-y-8 w-full">
+      <form [formGroup]="hubForm" class="space-y-8 w-full">
         <label
-          for="serviceName"
+          for="title"
           class="flex justify-between items-center w-full border-b px-2"
         >
           <input
-            id="serviceName"
+            id="title"
             type="text"
-            placeholder="service Name"
-            formControlName="service_name"
+            placeholder="Title"
+            formControlName="title"
             class="w-full py-2 outline-none"
           />
         </label>
         <label
-          for="planName"
+          for="type"
           class="flex justify-between items-center w-full border-b px-2"
         >
           <input
-            id="planName"
+            id="type"
             type="text"
-            placeholder="Plan Name"
-            formControlName="plan_name"
+            placeholder="Type"
+            formControlName="type"
             class="w-full py-2 outline-none"
           />
         </label>
 
         <label
-          for="startDate"
+          for="value"
           class="flex justify-between items-center w-full border-b px-2"
         >
           <input
-            id="startDate"
-            type="date"
-            placeholder="Start Date"
-            formControlName="start_date"
-            class="w-full py-2 outline-none"
-          />
-        </label>
-
-        <label
-          for="renewalDate"
-          class="flex justify-between items-center w-full border-b px-2"
-        >
-          <input
-            id="renewalDate"
-            type="date"
-            placeholder="Renewal Date"
-            formControlName="renewal_date"
-            class="w-full py-2 outline-none"
-          />
-        </label>
-
-        <label
-          for="price"
-          class="flex justify-between items-center w-full border-b px-2"
-        >
-          <input
-            id="price"
-            type="number"
-            placeholder="Price"
-            formControlName="price"
-            class="w-full py-2 outline-none"
-          />
-        </label>
-
-        <label
-          for="currency"
-          class="flex justify-between items-center w-full border-b px-2"
-        >
-          <input
-            id="currency"
+            id="value"
             type="text"
-            placeholder="Currency"
-            formControlName="currency"
+            placeholder="Value"
+            formControlName="value"
             class="w-full py-2 outline-none"
           />
         </label>
@@ -192,38 +151,15 @@
           />
         </label>
 
-        <label
-          for="status"
-          class="flex justify-between items-center w-full border-b px-2"
-        >
-          <input
-            id="status"
-            type="text"
-            placeholder="Status"
-            formControlName="status"
-            class="w-full py-2 outline-none"
-          />
-        </label>
-
         <div class="flex w-full justify-between items-center text-primary">
           <button
-            (click)="
-              isAddSubscription()
-                ? submitCreateSubscriptions()
-                : submitEditSubscription()
-            "
-            [ngClass]="
-              subscriptionForm.invalid ? 'bg-purple-300' : 'bg-primary '
-            "
+            (click)="isAddHub() ? submitCreateHubs() : submitEditHub()"
+            [ngClass]="hubForm.invalid ? 'bg-purple-300' : 'bg-primary '"
             class="bg-primary py-1 rounded-2xl text-container h-8 px-6 text-sm"
-            [disabled]="subscriptionForm.invalid"
+            [disabled]="hubForm.invalid"
           >
             {{
-              isSubmitting()
-                ? "Submitting..."
-                : isAddSubscription()
-                ? "Add"
-                : "Update"
+              isSubmitting() ? "Submitting..." : isAddHub() ? "Add" : "Update"
             }}
           </button>
         </div>
@@ -235,7 +171,7 @@
 <app-modal (backdropClick)="toggleDeleteModal()">
   <div class="w-full space-y-4 rounded-md bg-white p-5">
     <div class="flex items-center justify-between">
-      <p class="text-xl font-bold">Delete Subscription</p>
+      <p class="text-xl font-bold">Delete Resource</p>
       <button type="button" (click)="toggleDeleteModal()">
         <svg
           width="37"
@@ -282,10 +218,8 @@
 
       <p class="text-primaryGrayTextColor">
         You’re about to delete the
-        <span class="font-bold text-slate-900">{{
-          selectedSubscriptions()?.service_name
-        }}</span>
-        subscription permananently?. Are you sure?
+        <span class="font-bold text-slate-900">{{ selectedHub()?.title }}</span>
+        resource permananently? Are you sure?
       </p>
 
       <div class="flex w-full justify-between py-4">
@@ -296,7 +230,7 @@
           Cancel
         </button>
         <button
-          (click)="deleteSubscription(selectedSubscriptions()!.id)"
+          (click)="deleteHub(selectedHub()!.id)"
           class="mb-2 h-[40px] w-[145px] rounded-xl bg-setColor px-6 text-sm font-medium leading-none text-container hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 bg-primary hover:cursor-pointer"
         >
           {{ isSubmitting() ? "Deleting.." : "Delete" }}
