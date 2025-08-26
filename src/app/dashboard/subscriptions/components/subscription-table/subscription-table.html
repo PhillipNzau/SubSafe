@@ -63,7 +63,7 @@
 
             <!-- body -->
             <tbody class="bg-white divide-y">
-              @for (subscription of subscriptionsData; track $index) {
+              @for (subscription of filteredSubscriptions(); track $index) {
               <tr>
                 <!-- service name -->
                 <td

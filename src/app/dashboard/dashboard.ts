@@ -1,7 +1,7 @@
 import { Component, HostListener, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Navbar } from '../shared/components/navbar/navbar';
-import { TopBar } from '../shared/components/top-bar/top-bar';
+import { Navbar } from './shared/components/navbar/navbar';
+import { TopBar } from './shared/components/top-bar/top-bar';
 import { CommonModule } from '@angular/common';
 
 @Component({

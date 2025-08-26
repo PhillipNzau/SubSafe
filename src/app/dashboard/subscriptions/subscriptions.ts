@@ -6,7 +6,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Modal } from '../../shared/components/modal/modal';
+import { Modal } from '../shared/components/modal/modal';
 
 @Component({
   selector: 'app-subscriptions',
