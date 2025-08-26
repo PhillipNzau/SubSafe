@@ -21,6 +21,17 @@
   >
     Subscriptions
   </li>
+  <li
+    [ngClass]="{
+      'bg-primary-light border-s-container border-s-[5px]':
+        isRouteActive('/hub')
+    }"
+    routerLink="/hub"
+    class="hover:bg-primary-light p-5 hover:border-s-container hover:border-s-[5px] transition-all duration-300 hover:cursor-pointer"
+    (click)="onToggle()"
+  >
+    Hub
+  </li>
   <!-- <li
     [ngClass]="{
       'bg-primary-light border-s-container border-s-[5px]':

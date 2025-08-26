@@ -40,6 +40,21 @@ export const DASHBOARD_ROUTES: Route[] = [
             './subscriptions/components/subscriptions-details/subscriptions-details'
           ).then((m) => m.SubscriptionsDetails),
       },
+
+      {
+        path: 'hub',
+        // canActivate: [permissionGuard],
+        // data: { permission: 'device_view' },
+        loadComponent: () => import('./hubs/hubs').then((m) => m.Hubs),
+      },
+      {
+        path: 'hub/:id',
+        loadComponent: () =>
+          import('./hubs/components/hub-details/hub-details').then(
+            (m) => m.HubDetails
+          ),
+      },
+
       {
         path: 'settings',
         // canActivate: [permissionGuard],
