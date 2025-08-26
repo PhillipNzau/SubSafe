@@ -209,4 +209,65 @@ export class Credentials implements OnInit {
     this.selectedCredentials.set(credential);
     this.toggleDeleteModal();
   }
+
+  exportCredentials() {
+    const loadingToast = this.toastService.loading('Processing...');
+
+    this.credentialService.exportCredentials().subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(
+          new Blob([blob], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          })
+        );
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'credentials.xlsx'; // ✅ CSV file name
+        document.body.appendChild(a);
+        a.click();
+
+        // Cleanup
+        a.remove();
+        window.URL.revokeObjectURL(url);
+
+        this.toastService.success(`Downloaded credentials successfully!`, {
+          duration: 2000,
+        });
+        loadingToast.close();
+      },
+      error: (err) => {
+        loadingToast.close();
+        this.toastService.error(
+          `Something went wrong downloading credentials! ${
+            err.error?.error || ''
+          }`,
+          { duration: 2000 }
+        );
+      },
+    });
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      console.log('Selected file:', file);
+      // 👉 upload or process file here
+      this.importSubscriptions(file);
+    }
+  }
+
+  importSubscriptions(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.credentialService.importCredentials(formData).subscribe({
+      next: (res) => {
+        console.log('Imported successfully:', res);
+        this.listCredentials();
+      },
+      error: (err) => {
+        console.error('Import failed:', err);
+      },
+    });
+  }
 }

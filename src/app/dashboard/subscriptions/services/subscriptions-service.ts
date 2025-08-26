@@ -18,6 +18,8 @@ export class SubscriptionsService {
   deleteSubscriptionUrl = environment.deleteSubscription;
   createSubscriptionUrl = environment.createSubscription;
   updateSubscriptionUrl = environment.updateSubscription;
+  importSubscriptionsUrl = environment.importSubscriptions;
+  exportSubscriptionsUrl = environment.exportSubscriptions;
 
   router = inject(Router);
   http = inject(HttpClient);
@@ -70,5 +72,19 @@ export class SubscriptionsService {
           return res;
         })
       );
+  }
+
+  exportSubscriptions() {
+    return this.http.get(this.exportSubscriptionsUrl, {
+      responseType: 'blob', // important for files
+    });
+  }
+
+  importSubscriptions(file: any) {
+    return this.http.post(this.importSubscriptionsUrl, file).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }

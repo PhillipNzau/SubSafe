@@ -17,6 +17,8 @@ export class CredentialsService {
   deleteCredentialUrl = environment.deleteCredential;
   createCredentialUrl = environment.createCredential;
   updateCredentialUrl = environment.updateCredential;
+  exportCredentialsUrl = environment.exportCredentials;
+  importCredentialsUrl = environment.importCredentials;
 
   router = inject(Router);
   http = inject(HttpClient);
@@ -69,5 +71,19 @@ export class CredentialsService {
           return res;
         })
       );
+  }
+
+  exportCredentials() {
+    return this.http.get(this.exportCredentialsUrl, {
+      responseType: 'blob', // important for files
+    });
+  }
+
+  importCredentials(file: any) {
+    return this.http.post(this.importCredentialsUrl, file).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }

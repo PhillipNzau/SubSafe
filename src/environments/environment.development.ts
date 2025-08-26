@@ -1,9 +1,11 @@
-const url = 'http://localhost:8080/';
-// const url = 'https://go-vault.onrender.com/';
+// const url = 'http://localhost:8080/';
+const url = 'https://go-vault.onrender.com/';
 
 const authBaseUrl = url + 'auth/';
 const credentialsBaseUrl = url + 'credentials';
 const subscriptionsBaseUrl = url + 'subscriptions';
+const exportBaseUrl = url + 'export';
+const importBaseUrl = url + 'import';
 
 export const environment = {
   production: false,
@@ -25,4 +27,11 @@ export const environment = {
   deleteSubscription: subscriptionsBaseUrl + '/',
   createSubscription: subscriptionsBaseUrl,
   updateSubscription: subscriptionsBaseUrl + '/',
+
+  ///////////////** EXPORT IMPORT URLS **///////////////////
+  exportCredentials: exportBaseUrl + '/credentials/excel',
+  exportSubscriptions: exportBaseUrl + '/subscriptions/excel',
+
+  importCredentials: importBaseUrl + '/credentials/excel',
+  importSubscriptions: importBaseUrl + '/subscriptions/excel',
 };
