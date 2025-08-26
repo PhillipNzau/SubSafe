@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CredentialsService } from './services/credentials-serice';
 import { HotToastService } from '@ngneat/hot-toast';
 import { CredentialsResponseModel } from './models/credentials';
-import { Modal } from '../../shared/components/modal/modal';
+import { Modal } from '../shared/components/modal/modal';
 
 @Component({
   selector: 'app-credentials',
