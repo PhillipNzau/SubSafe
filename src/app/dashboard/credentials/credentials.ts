@@ -76,7 +76,7 @@ export class Credentials implements OnInit {
         },
         error: (err) => {
           this.toastService.error(
-            `Something went wrong creating credential! ${err.error.message}!!`,
+            `Something went wrong creating credential! ${err.error.error}!!`,
             {
               duration: 2000,
             }
@@ -108,7 +108,7 @@ export class Credentials implements OnInit {
         },
         error: (err) => {
           this.toastService.error(
-            `Something went wrong updating credential! ${err.error.message}!!`,
+            `Something went wrong updating credential! ${err.error.error}!!`,
             {
               duration: 2000,
             }
@@ -133,7 +133,7 @@ export class Credentials implements OnInit {
       error: (err) => {
         loadingToast.close();
         this.toastService.error(
-          `Something went wrong Fetching credentials! ${err.error.message}!!`,
+          `Something went wrong Fetching credentials! ${err.error.error}!!`,
           {
             duration: 2000,
           }
@@ -161,7 +161,7 @@ export class Credentials implements OnInit {
       error: (err) => {
         loadingToast.close();
         this.toastService.error(
-          `Something went wrong Deleting credentials! ${err.error.message}!!`,
+          `Something went wrong Deleting credentials! ${err.error.error}!!`,
           {
             duration: 2000,
           }

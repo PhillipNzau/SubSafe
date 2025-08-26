@@ -29,99 +29,31 @@ export class Auth {
 
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, this.passwordValidator]],
   });
 
-  signUpForm = this.fb.nonNullable.group(
-    {
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, this.passwordValidator]],
-      confirm_password: ['', [Validators.required, this.passwordValidator]],
-    },
-    {
-      validators: this.passwordMatchValidator(),
-    }
-  );
+  signUpForm = this.fb.nonNullable.group({
+    name: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+  });
 
-  passwordFieldType = signal<string>('password');
+  verifyOtpForm = this.fb.nonNullable.group({
+    email: ['', [Validators.required]],
+    otp: ['', [Validators.required, Validators.min(6)]],
+  });
+
   isSignup = signal<boolean>(false);
+  isVerifyOtp = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
 
-  passwordValidator(control: AbstractControl): ValidationErrors | null {
-    const value: string = control.value;
+  email = signal<any>('');
 
-    if (!value) return null;
-
-    const errors: ValidationErrors = {};
-
-    if (value.length < 8) {
-      errors['minLength'] = 'Password must be at least 8 characters long';
-    }
-
-    if (!/[A-Z]/.test(value)) {
-      errors['uppercase'] =
-        'Password must contain at least one uppercase letter';
-    }
-
-    if (!/[!@#$%^&*(),.?":{}|<>_\[\]\\\/~`+=;-]/.test(value)) {
-      errors['specialChar'] =
-        'Password must contain at least one special character';
-    }
-
-    if (/\s/.test(value)) {
-      errors['containsSpace'] = 'Password must not contain spaces';
-    }
-
-    if (/[<>'"\\&]/.test(value)) {
-      errors['dangerousChars'] = 'Password contains unsafe characters';
-    }
-
-    return Object.keys(errors).length > 0 ? errors : null;
-  }
-
-  passwordMatchValidator(): ValidatorFn {
-    return (formGroup: AbstractControl): ValidationErrors | null => {
-      const password = formGroup.get('password')?.value;
-      const confirmPassword = formGroup.get('confirm_password')?.value;
-
-      if (!password || !confirmPassword) return null;
-
-      return password === confirmPassword ? null : { passwordMismatch: true };
-    };
-  }
-
-  getPasswordErrors(controlName: string): string[] {
-    const control = (
-      (this.isSignup() ? this.signUpForm : this.loginForm) as FormGroup
-    ).get(controlName);
-
-    const errors = control?.errors;
-    if (!errors) return [];
-
-    const messages: string[] = [];
-
-    if (errors['minLength'])
-      messages.push('Password must be at least 8 characters.');
-    if (errors['uppercase'])
-      messages.push('Must include at least one uppercase letter.');
-    if (errors['specialChar'])
-      messages.push('Must include at least one special character.');
-    if (errors['containsSpace'])
-      messages.push('Password cannot contain spaces.');
-    if (errors['dangerousChars'])
-      messages.push('Password contains unsafe characters.');
-
-    return messages;
-  }
-
-  togglePasswordVisibility() {
-    const current = this.passwordFieldType();
-
-    this.passwordFieldType.set(current === 'password' ? 'text' : 'password');
-  }
   toggleSignup() {
-    this.isSignup.set(!this.isSignup());
+    if (this.isVerifyOtp()) {
+      this.isSignup.set(false);
+    } else {
+      this.isSignup.set(!this.isSignup());
+    }
+    this.isVerifyOtp.set(false);
   }
 
   // login user
@@ -131,16 +63,20 @@ export class Auth {
 
     this.authService.loginUser(this.loginForm.value).subscribe({
       next: (res) => {
-        this.route.navigate(['/credentials']);
-        this.toastService.success(`Login success, Welcome!`, {
+        this.toastService.success(`OTP set successfully!`, {
           duration: 2000,
         });
         loadingToast.close();
         this.isSubmitting.set(false);
+        this.isVerifyOtp.set(true);
+        this.email.set(this.loginForm.value.email);
+        this.verifyOtpForm.patchValue({
+          email: this.loginForm.value.email,
+        });
       },
       error: (err) => {
         this.toastService.error(
-          `Something went wrong logging in! ${err.error.message}!!`,
+          `Something went wrong logging in! ${err.error.error}!!`,
           {
             duration: 2000,
           }
@@ -157,7 +93,40 @@ export class Auth {
     this.isSubmitting.set(true);
     this.authService.registerUser(this.signUpForm.value).subscribe({
       next: (res) => {
-        this.toastService.success(`User registration success, Welcome!`, {
+        this.toastService.success(
+          `User registration success, check email for otp!`,
+          {
+            duration: 2000,
+          }
+        );
+        loadingToast.close();
+        this.isSubmitting.set(false);
+        this.isVerifyOtp.set(true);
+        this.isSignup.set(false);
+        this.verifyOtpForm.patchValue({
+          email: this.signUpForm.value.email,
+        });
+      },
+      error: (err) => {
+        this.toastService.error(
+          `Something went wrong registering! ${err.error.error}!`,
+          {
+            duration: 2000,
+          }
+        );
+        loadingToast.close();
+        this.isSubmitting.set(false);
+      },
+    });
+  }
+
+  // verify otp
+  submitOtpForm() {
+    const loadingToast = this.toastService.loading('Processing...');
+    this.isSubmitting.set(true);
+    this.authService.verifyOtp(this.verifyOtpForm.value).subscribe({
+      next: (res) => {
+        this.toastService.success(`User Verified success, Welcome!`, {
           duration: 2000,
         });
         this.route.navigate(['/credentials']);
@@ -166,7 +135,7 @@ export class Auth {
       },
       error: (err) => {
         this.toastService.error(
-          `Something went wrong registering! ${err.error.message}!`,
+          `Something went wrong verifying! ${err.error.error}!`,
           {
             duration: 2000,
           }

@@ -37,7 +37,7 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(Authservice);
 
   // 🚨 Skip adding token / refresh logic for refresh endpoint
-  if (req.url.includes('/auth/refresh')) {
+  if (req.url.includes('/auth/refresh') || req.url.includes('/auth/verify')) {
     return next(req);
   }
 

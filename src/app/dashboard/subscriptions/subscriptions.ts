@@ -66,7 +66,7 @@ export class Subscriptions implements OnInit {
         },
         error: (err) => {
           this.toastService.error(
-            `Something went wrong creating subscription! ${err.error.message}!!`,
+            `Something went wrong creating subscription! ${err.error.error}!!`,
             {
               duration: 2000,
             }
@@ -99,7 +99,7 @@ export class Subscriptions implements OnInit {
         },
         error: (err) => {
           this.toastService.error(
-            `Something went wrong updating subscription! ${err.error.message}!!`,
+            `Something went wrong updating subscription! ${err.error.error}!!`,
             {
               duration: 2000,
             }
@@ -124,7 +124,7 @@ export class Subscriptions implements OnInit {
       error: (err) => {
         loadingToast.close();
         this.toastService.error(
-          `Something went wrong Fetching subscriptions! ${err.error.message}!!`,
+          `Something went wrong Fetching subscriptions! ${err.error.error}!!`,
           {
             duration: 2000,
           }
@@ -151,7 +151,7 @@ export class Subscriptions implements OnInit {
       error: (err) => {
         loadingToast.close();
         this.toastService.error(
-          `Something went wrong Deleting subscriptions! ${err.error.message}!!`,
+          `Something went wrong Deleting subscriptions! ${err.error.error}!!`,
           {
             duration: 2000,
           }

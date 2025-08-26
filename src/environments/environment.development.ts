@@ -12,6 +12,7 @@ export const environment = {
   loginUser: authBaseUrl + 'login',
   registerUser: authBaseUrl + 'register',
   refreshToken: authBaseUrl + 'refresh',
+  verifyOtp: authBaseUrl + 'verify-otp',
   ///////////////** CREDENTIALS URLS **///////////////////
   listCredentials: credentialsBaseUrl,
   listSingleCredential: credentialsBaseUrl + '/',
