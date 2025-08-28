@@ -25,6 +25,14 @@ export class Hubs implements OnInit {
   isEditHub = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
 
+  types = signal<any[]>([
+    { id: '1', name: 'Bookmark' },
+    { id: '2', name: 'Server IP' },
+    { id: '3', name: 'Server Login' },
+    { id: '4', name: 'Note' },
+    { id: '5', name: 'Other' },
+  ]);
+
   hubForm = this.fb.nonNullable.group({
     title: ['', [Validators.required]],
     type: ['', [Validators.required]],

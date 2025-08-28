@@ -9,10 +9,11 @@ import {
 } from '@angular/core';
 import { HubsResponseModel } from '../../models/hubs-model';
 import { SearchService } from '../../../shared/services/search-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-hub-table',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './hub-table.html',
   styleUrl: './hub-table.css',
 })

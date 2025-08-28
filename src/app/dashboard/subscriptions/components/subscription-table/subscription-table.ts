@@ -9,10 +9,11 @@ import {
 } from '@angular/core';
 import { SubscriptionsResponseModel } from '../../models/subscriptions-model';
 import { SearchService } from '../../../shared/services/search-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-subscription-table',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './subscription-table.html',
   styleUrl: './subscription-table.css',
 })

@@ -35,6 +35,7 @@ export class Credentials implements OnInit {
     { id: '1', name: 'Streaming Service' },
     { id: '2', name: 'Social Media' },
     { id: '3', name: 'Finance' },
+    { id: '4', name: 'Other' },
   ]);
 
   credentialForm = this.fb.nonNullable.group({
