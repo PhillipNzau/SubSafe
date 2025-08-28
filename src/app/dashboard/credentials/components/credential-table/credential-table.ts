@@ -9,10 +9,11 @@ import {
 } from '@angular/core';
 import { CredentialsResponseModel } from '../../models/credentials';
 import { SearchService } from '../../../shared/services/search-service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-credential-table',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './credential-table.html',
   styleUrl: './credential-table.css',
 })

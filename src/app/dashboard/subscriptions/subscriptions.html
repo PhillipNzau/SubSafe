@@ -1,13 +1,13 @@
 <!-- <div class="flex gap-4 items-center justify-between"> -->
-<div class="flex items-center justify-between gap-4 text-text">
+<div class="flex items-center justify-between gap-4 text-text overflow-hidden">
   <h1 class="font-semibold text-lg">Subscriptions</h1>
 
-  <div class="flex gap-2">
+  <div class="flex gap-1 md:gap-2">
     <button
       (click)="toggleModal('add')"
       class="bg-primary py-1 rounded-md text-container text-xs md:h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
     >
-      Add Subscription
+      Add
     </button>
     <div>
       <!-- Hidden file input -->
@@ -22,16 +22,16 @@
       <!-- Button -->
       <button
         (click)="fileInput.click()"
-        class="bg-primary py-1 rounded-md text-container h-8 px-6 text-sm hover:cursor-pointer"
+        class="bg-primary py-1 rounded-md text-container text-xs md:h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
       >
-        Import Subscriptions
+        Import
       </button>
     </div>
     <button
       (click)="exportSubscriptions()"
-      class="bg-primary py-1 rounded-md text-container h-8 px-6 text-sm hover:cursor-pointer"
+      class="bg-primary py-1 rounded-md text-container text-xs md:h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
     >
-      Export Subscriptions (Excel)
+      Export
     </button>
   </div>
 </div>
@@ -111,7 +111,7 @@
             type="text"
             placeholder="service Name"
             formControlName="service_name"
-            class="w-full py-2 outline-none"
+            class="w-full py-2 outline-none placeholder:text-gray-400"
           />
         </label>
         <label
@@ -123,34 +123,49 @@
             type="text"
             placeholder="Plan Name"
             formControlName="plan_name"
-            class="w-full py-2 outline-none"
+            class="w-full py-2 outline-none placeholder:text-gray-400"
           />
         </label>
 
-        <label
-          for="startDate"
-          class="flex justify-between items-center w-full border-b px-2"
-        >
+        <label for="startDate" class="flex flex-col w-full border-b px-2">
+          <p class="text-text font-bold text-sm">Start Date</p>
+
           <input
             id="startDate"
             type="date"
             placeholder="Start Date"
             formControlName="start_date"
-            class="w-full py-2 outline-none"
+            class="w-full py-2 outline-none placeholder:text-gray-400"
           />
         </label>
 
-        <label
-          for="renewalDate"
-          class="flex justify-between items-center w-full border-b px-2"
-        >
+        <label for="renewalDate" class="flex flex-col w-full border-b px-2">
+          <p class="text-text font-bold text-sm">Renewal Date</p>
           <input
             id="renewalDate"
             type="date"
             placeholder="Renewal Date"
             formControlName="renewal_date"
-            class="w-full py-2 outline-none"
+            class="w-full py-2 outline-none placeholder:text-gray-400"
           />
+        </label>
+
+        <label
+          for="currency"
+          class="flex justify-between items-center w-full border-b px-2"
+        >
+          <select
+            id="currency"
+            formControlName="currency"
+            class="w-full py-2 outline-none bg-transparent"
+          >
+            <option value="" disabled selected>Choose currency</option>
+            @for (curr of currency(); track $index) {
+            <option [value]="curr.name">
+              {{ curr.name }}
+            </option>
+            }
+          </select>
         </label>
 
         <label
@@ -162,20 +177,7 @@
             type="number"
             placeholder="Price"
             formControlName="price"
-            class="w-full py-2 outline-none"
-          />
-        </label>
-
-        <label
-          for="currency"
-          class="flex justify-between items-center w-full border-b px-2"
-        >
-          <input
-            id="currency"
-            type="text"
-            placeholder="Currency"
-            formControlName="currency"
-            class="w-full py-2 outline-none"
+            class="w-full py-2 outline-none placeholder:text-gray-400"
           />
         </label>
 
@@ -183,26 +185,33 @@
           for="notes"
           class="flex justify-between items-center w-full border-b px-2"
         >
-          <input
+          <textarea
             id="notes"
             type="text"
             placeholder="Notes"
             formControlName="notes"
-            class="w-full py-2 outline-none"
-          />
+            class="w-full py-2 outline-none placeholder:text-gray-400"
+            rows="3"
+            cols="40"
+          ></textarea>
         </label>
 
         <label
           for="status"
           class="flex justify-between items-center w-full border-b px-2"
         >
-          <input
+          <select
             id="status"
-            type="text"
-            placeholder="Status"
             formControlName="status"
-            class="w-full py-2 outline-none"
-          />
+            class="w-full py-2 outline-none bg-transparent"
+          >
+            <option value="" disabled selected>Subscription Status</option>
+            @for (stat of status(); track $index) {
+            <option [value]="stat.name">
+              {{ stat.name }}
+            </option>
+            }
+          </select>
         </label>
 
         <div class="flex w-full justify-between items-center text-primary">

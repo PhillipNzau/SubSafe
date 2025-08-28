@@ -1,56 +1,56 @@
 <section class="container mx-auto">
-  <div class="flex flex-col mt-6">
+  <div class="flex flex-col mt-6 mx-1">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-        <div class="overflow-hidden md:rounded-lg shadow-lg">
+        <div class="overflow-hidden md:rounded-lg shadow-lg px-2">
           <table class="min-w-full divide-y">
             <!-- head -->
             <thead class="bg-gray-50">
-              <tr>
+              <tr class="">
                 <th
                   scope="col"
-                  class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                  class="py-3.5 px-2 text-sm px-bold-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
                 >
                   <span>Service Name</span>
                 </th>
 
                 <th
                   scope="col"
-                  class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                  class="px-12 py-3.5 text-sm fontboldl text-left rtl:text-right text-gray-500 dark:text-gray-500"
                 >
                   <span>Plan Name</span>
                 </th>
 
                 <th
                   scope="col"
-                  class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
                 >
                   <span>Price</span>
                 </th>
 
                 <th
                   scope="col"
-                  class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
                 >
                   Currency
                 </th>
 
                 <th
                   scope="col"
-                  class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
                 >
                   Status
                 </th>
                 <th
                   scope="col"
-                  class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
                 >
                   Notes
                 </th>
 
                 <th
                   scope="col"
-                  class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
                 >
                   Created at
                 </th>
@@ -67,68 +67,74 @@
               <tr>
                 <!-- service name -->
                 <td
-                  class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap"
+                  class="px-4 py-4 text-sm font-medium text-gray-500 dark:text-gray-500 whitespace-nowrap"
                 >
-                  <div class="inline-flex items-center gap-x-3">
-                    <div class="flex items-center gap-x-2">
-                      <div>
-                        <h2
-                          class="font-medium text-gray-600 dark:text-gray-400"
-                        >
-                          {{ subscription.service_name }}
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
+                  {{ subscription.service_name }}
                 </td>
 
                 <!-- plan name -->
                 <td
-                  class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap"
+                  class="px-12 py-4 text-sm font-medium text-gray-500 dark:text-gray-500 whitespace-nowrap"
                 >
-                  <div
-                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60"
-                  >
-                    <span
-                      class="h-1.5 w-1.5 rounded-full bg-emerald-500"
-                    ></span>
-
-                    <h2 class="text-sm font-normal text-emerald-500">
-                      {{ subscription.plan_name }}
-                    </h2>
-                  </div>
+                  {{ subscription.plan_name }}
                 </td>
 
                 <!-- price -->
                 <td
                   class="px-4 py-4 text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap"
                 >
-                  <p
-                    class="px-3 py-1 text-xs text-indigo-500 rounded-full bg-indigo-100/60"
-                  >
-                    {{ subscription.price }}
-                  </p>
+                  {{ subscription.price }}
                 </td>
 
                 <!-- currency -->
                 <td
                   class="px-4 py-4 text-sm text-gray-600 dark:text-gray-500 whitespace-nowrap"
                 >
-                  {{ subscription.currency }}
+                  <h2
+                    class="px-3 py-1 text-center text-xs text-indigo-500 rounded-full bg-indigo-100/60"
+                  >
+                    {{ subscription.currency }}
+                  </h2>
                 </td>
 
                 <!-- status -->
                 <td
                   class="px-4 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-500"
                 >
-                  <div class="flex items-center gap-x-2">
-                    {{ subscription.status }}
+                  <div
+                    [ngClass]="
+                      subscription.status === 'Active'
+                        ? 'bg-emerald-100/60'
+                        : 'bg-rose-100/60'
+                    "
+                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2"
+                  >
+                    <span
+                      [ngClass]="
+                        subscription.status === 'Active'
+                          ? 'bg-emerald-500'
+                          : 'bg-rose-500'
+                      "
+                      class="h-1.5 w-1.5 rounded-full"
+                    ></span>
+
+                    <h2
+                      [ngClass]="
+                        subscription.status === 'Active'
+                          ? 'text-emerald-500'
+                          : 'text-rose-500'
+                      "
+                      class="text-sm font-normal"
+                    >
+                      {{ subscription.status }}
+                    </h2>
                   </div>
                 </td>
 
                 <!-- notes -->
                 <td
-                  class="px-4 py-4 text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap"
+                  class="px-4 py-4 text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs hover:cursor-pointer"
+                  [attr.title]="subscription.notes"
                 >
                   {{ subscription.notes }}
                 </td>
@@ -137,7 +143,7 @@
                 <td
                   class="px-4 py-4 text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap"
                 >
-                  {{ subscription.created_at }}
+                  {{ subscription.created_at | date : "yyyy-MM-dd" }}
                 </td>
 
                 <!-- actions -->

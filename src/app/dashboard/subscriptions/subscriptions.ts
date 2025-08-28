@@ -32,6 +32,19 @@ export class Subscriptions implements OnInit {
   passwordFieldType = signal<'password' | 'text'>('password');
   isSubmitting = signal<boolean>(false);
 
+  status = signal([
+    { id: '1', name: 'Active' },
+    { id: '2', name: 'Inactive' },
+  ]);
+
+  currency = signal([
+    { id: '1', name: 'KES' },
+    { id: '2', name: 'TZS' },
+    { id: '3', name: 'UGX' },
+    { id: '4', name: 'GBP' },
+    { id: '5', name: 'USD' },
+  ]);
+
   subscriptionForm = this.fb.nonNullable.group({
     service_name: ['', [Validators.required]],
     plan_name: ['', [Validators.required]],
@@ -161,13 +174,17 @@ export class Subscriptions implements OnInit {
     });
   }
 
+  private formatDate(dateString: any): any {
+    if (!dateString) return null;
+    return dateString.split('T')[0]; // '1984-07-17T...' → '1984-07-17'
+  }
   editSubscription(subscription: SubscriptionsResponseModel) {
     this.selectedSubscriptions.set(subscription);
     this.subscriptionForm.patchValue({
       service_name: subscription.service_name,
       plan_name: subscription.plan_name,
-      start_date: subscription.start_date,
-      renewal_date: subscription.renewal_date,
+      start_date: this.formatDate(subscription.start_date),
+      renewal_date: this.formatDate(subscription.renewal_date),
       price: subscription.price,
       currency: subscription.currency,
       status: subscription.status,

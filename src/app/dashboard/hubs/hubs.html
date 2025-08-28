@@ -101,6 +101,24 @@
     <div>
       <form [formGroup]="hubForm" class="space-y-8 w-full">
         <label
+          for="type"
+          class="flex justify-between items-center w-full border-b px-2"
+        >
+          <select
+            id="type"
+            formControlName="type"
+            class="w-full py-2 outline-none bg-transparent"
+          >
+            <option value="" disabled selected>Resource Type</option>
+            @for (type of types(); track $index) {
+            <option [value]="type.name">
+              {{ type.name }}
+            </option>
+            }
+          </select>
+        </label>
+
+        <label
           for="title"
           class="flex justify-between items-center w-full border-b px-2"
         >
@@ -109,19 +127,7 @@
             type="text"
             placeholder="Title"
             formControlName="title"
-            class="w-full py-2 outline-none"
-          />
-        </label>
-        <label
-          for="type"
-          class="flex justify-between items-center w-full border-b px-2"
-        >
-          <input
-            id="type"
-            type="text"
-            placeholder="Type"
-            formControlName="type"
-            class="w-full py-2 outline-none"
+            class="w-full py-2 outline-none placeholder:text-gray-400"
           />
         </label>
 
@@ -134,7 +140,7 @@
             type="text"
             placeholder="Value"
             formControlName="value"
-            class="w-full py-2 outline-none"
+            class="w-full py-2 outline-none placeholder:text-gray-400"
           />
         </label>
 
@@ -142,13 +148,15 @@
           for="notes"
           class="flex justify-between items-center w-full border-b px-2"
         >
-          <input
+          <textarea
             id="notes"
             type="text"
             placeholder="Notes"
             formControlName="notes"
-            class="w-full py-2 outline-none"
-          />
+            class="w-full py-2 outline-none placeholder:text-gray-400"
+            rows="3"
+            cols="40"
+          ></textarea>
         </label>
 
         <div class="flex w-full justify-between items-center text-primary">

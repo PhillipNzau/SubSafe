@@ -42,7 +42,7 @@
               type="email"
               placeholder="Email"
               formControlName="email"
-              class="w-full py-2 outline-none"
+              class="w-full py-2 outline-none placeholder:text-gray-400"
             />
           </label>
           @if ((isSignup() ? signUpForm : loginForm).controls.email.touched &&
@@ -70,7 +70,7 @@
               type="name"
               placeholder="Name"
               formControlName="name"
-              class="w-full py-2 outline-none"
+              class="w-full py-2 outline-none placeholder:text-gray-400"
             />
           </label>
 
@@ -94,7 +94,7 @@
               id="otp"
               placeholder="Enter Otp"
               type="text"
-              class="w-full py-2 outline-none"
+              class="w-full py-2 outline-none placeholder:text-gray-400"
             />
           </label>
         </div>
