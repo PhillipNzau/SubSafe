@@ -1,5 +1,5 @@
-const url = 'http://localhost:8080/';
-// const url = 'https://go-vault.onrender.com/';
+// const url = 'http://localhost:8080/';
+const url = 'https://go-vault.onrender.com/';
 
 const authBaseUrl = url + 'auth/';
 const credentialsBaseUrl = url + 'credentials';
