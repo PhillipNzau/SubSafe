@@ -32,9 +32,11 @@ export const environment = {
   ///////////////** EXPORT IMPORT URLS **///////////////////
   exportCredentials: exportBaseUrl + '/credentials/excel',
   exportSubscriptions: exportBaseUrl + '/subscriptions/excel',
+  exportResources: exportBaseUrl + '/resources/excel',
 
   importCredentials: importBaseUrl + '/credentials/excel',
   importSubscriptions: importBaseUrl + '/subscriptions/excel',
+  importResources: importBaseUrl + '/resources/excel',
 
   ///////////////** HUBS URLS **///////////////////
   listHubs: hubsBaseUrl,

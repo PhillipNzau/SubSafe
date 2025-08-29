@@ -15,6 +15,8 @@ export class HubsService {
   deleteHubUrl = environment.deleteHub;
   createHubUrl = environment.createHub;
   updateHubUrl = environment.updateHub;
+  exportResourcesUrl = environment.exportResources;
+  importResourcesUrl = environment.importResources;
 
   router = inject(Router);
   http = inject(HttpClient);
@@ -61,17 +63,17 @@ export class HubsService {
       );
   }
 
-  // exportSubscriptions() {
-  //   return this.http.get(this.exportHubsUrl, {
-  //     responseType: 'blob', // important for files
-  //   });
-  // }
+  exportResources() {
+    return this.http.get(this.exportResourcesUrl, {
+      responseType: 'blob',
+    });
+  }
 
-  // importSubscriptions(file: any) {
-  //   return this.http.post(this.importHubsUrl, file).pipe(
-  //     map((res) => {
-  //       return res;
-  //     })
-  //   );
-  // }
+  importResources(file: any) {
+    return this.http.post(this.importResourcesUrl, file).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 }
