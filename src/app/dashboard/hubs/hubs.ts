@@ -185,61 +185,61 @@ export class Hubs implements OnInit {
     this.toggleDeleteModal();
   }
 
-  // exportresources() {
-  //   const loadingToast = this.toastService.loading('Processing...');
+  exportResources() {
+    const loadingToast = this.toastService.loading('Processing...');
 
-  //   this.hubsService.exportresources().subscribe({
-  //     next: (blob: Blob) => {
-  //       const url = window.URL.createObjectURL(
-  //         new Blob([blob], {
-  //           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  //         })
-  //       );
-  //       const a = document.createElement('a');
-  //       a.href = url;
-  //       a.download = 'resources.xlsx'; // ✅ CSV file name
-  //       document.body.appendChild(a);
-  //       a.click();
+    this.hubsService.exportResources().subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(
+          new Blob([blob], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          })
+        );
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'resources.xlsx'; // ✅ CSV file name
+        document.body.appendChild(a);
+        a.click();
 
-  //       // Cleanup
-  //       a.remove();
-  //       window.URL.revokeObjectURL(url);
+        // Cleanup
+        a.remove();
+        window.URL.revokeObjectURL(url);
 
-  //       this.toastService.success(`Downloaded resources successfully!`, {
-  //         duration: 2000,
-  //       });
-  //       loadingToast.close();
-  //     },
-  //     error: (err) => {
-  //       loadingToast.close();
-  //       this.toastService.error(
-  //         `Something went wrong downloading resources! ${
-  //           err.error?.error || ''
-  //         }`,
-  //         { duration: 2000 }
-  //       );
-  //     },
-  //   });
-  // }
+        this.toastService.success(`Downloaded resources successfully!`, {
+          duration: 2000,
+        });
+        loadingToast.close();
+      },
+      error: (err) => {
+        loadingToast.close();
+        this.toastService.error(
+          `Something went wrong downloading resources! ${
+            err.error?.error || ''
+          }`,
+          { duration: 2000 }
+        );
+      },
+    });
+  }
 
-  // onFileSelected(event: Event) {
-  //   const file = (event.target as HTMLInputElement).files?.[0];
-  //   if (file) {
-  //     this.importresources(file);
-  //   }
-  // }
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.importResources(file);
+    }
+  }
 
-  // importresources(file: File) {
-  //   const formData = new FormData();
-  //   formData.append('file', file);
+  importResources(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
 
-  //   this.hubsService.importresources(formData).subscribe({
-  //     next: (res) => {
-  //       this.listHubs();
-  //     },
-  //     error: (err) => {
-  //       console.error('Import failed:', err);
-  //     },
-  //   });
-  // }
+    this.hubsService.importResources(formData).subscribe({
+      next: (res) => {
+        this.listHubs();
+      },
+      error: (err) => {
+        console.error('Import failed:', err);
+      },
+    });
+  }
 }
