@@ -139,7 +139,7 @@ export class Hubs implements OnInit {
 
         this.listHubs();
         this.isSubmitting.set(false);
-        this.toggleDeleteModal();
+        this.isDeleteModal.set(false);
       },
       error: (err) => {
         loadingToast.close();

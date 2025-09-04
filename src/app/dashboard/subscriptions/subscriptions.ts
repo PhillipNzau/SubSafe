@@ -159,7 +159,7 @@ export class Subscriptions implements OnInit {
 
         this.listSubscriptions();
         this.isSubmitting.set(false);
-        this.toggleDeleteModal();
+        this.isDeleteModal.set(false);
       },
       error: (err) => {
         loadingToast.close();

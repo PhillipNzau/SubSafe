@@ -157,7 +157,7 @@ export class Credentials implements OnInit {
         });
 
         this.listCredentials();
-        this.toggleDeleteModal();
+        this.isDeleteModal.set(false);
       },
       error: (err) => {
         loadingToast.close();
@@ -168,7 +168,7 @@ export class Credentials implements OnInit {
           }
         );
         this.isSubmitting.set(false);
-        this.toggleDeleteModal();
+        this.isDeleteModal.set(false);
       },
     });
   }
