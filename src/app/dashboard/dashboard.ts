@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { Navbar } from './shared/components/navbar/navbar';
 import { TopBar } from './shared/components/top-bar/top-bar';
 import { CommonModule } from '@angular/common';
+import { Search } from './shared/components/search/search';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, RouterOutlet, Navbar, TopBar],
+  imports: [CommonModule, RouterOutlet, Navbar, TopBar, Search],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
