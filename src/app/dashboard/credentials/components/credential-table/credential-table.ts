@@ -27,7 +27,7 @@ export class CredentialTable {
   private searchQuery = signal('');
 
   filteredCredentials = computed(() => {
-    const data = this.credentialsData() || [];
+    const data = this.credentialsData().reverse() || [];
     const q = this.searchQuery().trim().toLowerCase();
 
     if (!q) return data;
