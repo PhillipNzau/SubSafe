@@ -2,15 +2,15 @@
 <div class="flex items-center justify-between gap-4 text-text">
   <h1 class="font-semibold text-lg">Resources</h1>
 
-  <div class="flex gap-1">
+  <div class="flex gap-2">
     <button
       (click)="toggleModal('add')"
       class="bg-primary py-1 rounded-md text-container text-xs md:h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
     >
       Add Resource
     </button>
-    <div>
-      <!-- Hidden file input -->
+    <!-- <div>
+      Hidden file input
       <input
         type="file"
         #fileInput
@@ -19,17 +19,17 @@
         (change)="onFileSelected($event)"
       />
 
-      <!-- Button -->
-      <!-- <button
+      Button
+      <button
         (click)="fileInput.click()"
         class="bg-primary py-1 rounded-md text-container h-8 px-6 text-sm hover:cursor-pointer"
       >
         Import
-      </button> -->
-    </div>
+      </button>
+    </div> -->
     <button
       (click)="exportResources()"
-      class="bg-primary py-1 rounded-md text-container h-8 px-6 text-sm hover:cursor-pointer"
+      class="bg-primary py-1 rounded-md text-container text-xs h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
     >
       Export
     </button>
