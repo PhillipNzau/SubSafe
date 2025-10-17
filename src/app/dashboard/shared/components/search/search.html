@@ -1,0 +1,25 @@
+<div
+  class="flex bg-container items-center gap-1 py-2 px-3 rounded-xl text-text"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="opacity-75"
+  >
+    <path d="m21 21-4.34-4.34" />
+    <circle cx="11" cy="11" r="8" />
+  </svg>
+  <input
+    type="search"
+    (input)="onSearch($event)"
+    placeholder="Search..."
+    class="w-[20vw] bg-transparent px-3 text-sm placeholder:opacity-70 outline-none"
+  />
+</div>

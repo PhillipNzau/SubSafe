@@ -8,18 +8,17 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from '../../services/search-service';
+import { Search } from '../search/search';
 
 @Component({
   selector: 'app-top-bar',
-  imports: [],
+  imports: [Search],
   templateUrl: './top-bar.html',
   styleUrl: './top-bar.css',
 })
 export class TopBar {
   @Output() toggleNav = new EventEmitter<any>();
   @Input({ required: true }) isOpen: any;
-
-  searchService = inject(SearchService);
 
   onToggle() {
     this.isOpen = !this.isOpen;
@@ -32,10 +31,5 @@ export class TopBar {
   handleLogout() {
     localStorage.clear();
     this.router.navigate(['/auth']).then(() => {});
-  }
-
-  onSearch(event: Event) {
-    const query = (event.target as HTMLInputElement).value;
-    this.searchService.setSearch(query);
   }
 }
