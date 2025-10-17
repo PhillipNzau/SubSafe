@@ -9,8 +9,8 @@
     >
       Add Resource
     </button>
-    <div>
-      <!-- Hidden file input -->
+    <!-- <div>
+      Hidden file input
       <input
         type="file"
         #fileInput
@@ -19,49 +19,24 @@
         (change)="onFileSelected($event)"
       />
 
-      <!-- Button -->
-      <!-- <button
+      Button
+      <button
         (click)="fileInput.click()"
         class="bg-primary py-1 rounded-md text-container h-8 px-6 text-sm hover:cursor-pointer"
       >
         Import
-      </button> -->
-    </div>
+      </button>
+    </div> -->
     <button
       (click)="exportResources()"
-      class="bg-primary py-1 rounded-md text-container h-8 px-6 text-sm hover:cursor-pointer"
+      class="bg-primary py-1 rounded-md text-container text-xs h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
     >
       Export
     </button>
   </div>
 </div>
 
-<!-- <div>
-    <button
-      class="flex items-center gap-4 justify-between bg-primary py-1 rounded-md text-container h-8 px-3 text-sm hover:cursor-pointer"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-list-filter-icon lucide-list-filter"
-      >
-        <path d="M3 6h18" />
-        <path d="M7 12h10" />
-        <path d="M10 18h4" />
-      </svg>
-      Filter
-    </button>
-  </div> -->
-<!-- </div> -->
-
-<div class="overflow-hidden">
+<div class="overflow-hidden h-[76vh] pb-3 overflow-y-scroll mb-3 mt-2">
   <app-hub-table
     (deleteResource)="setDeleteHub($event)"
     (editResource)="editHub($event)"

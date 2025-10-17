@@ -2,7 +2,7 @@
 <div class="flex items-center justify-between gap-4 text-text overflow-hidden">
   <h1 class="font-semibold text-lg">Subscriptions</h1>
 
-  <div class="flex gap-1 md:gap-2">
+  <div class="flex gap-2">
     <button
       (click)="toggleModal('add')"
       class="bg-primary py-1 rounded-md text-container text-xs md:h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
@@ -22,14 +22,14 @@
       <!-- Button -->
       <button
         (click)="fileInput.click()"
-        class="bg-primary py-1 rounded-md text-container text-xs md:h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
+        class="bg-primary py-1 rounded-md text-container text-xs h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
       >
         Import
       </button>
     </div>
     <button
       (click)="exportSubscriptions()"
-      class="bg-primary py-1 rounded-md text-container text-xs md:h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
+      class="bg-primary py-1 rounded-md text-container text-xs h-8 px-2 md:px-6 md:text-sm hover:cursor-pointer"
     >
       Export
     </button>
@@ -61,7 +61,7 @@
   </div> -->
 <!-- </div> -->
 
-<div class="overflow-hidden">
+<div class="overflow-hidden h-[76vh] pb-3 overflow-y-scroll mb-3 mt-2">
   <app-subscription-table
     (deleteSubscription)="setDeleteSubscription($event)"
     (editSubscription)="editSubscription($event)"

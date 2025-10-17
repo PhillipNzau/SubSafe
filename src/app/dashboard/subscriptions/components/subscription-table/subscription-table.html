@@ -1,111 +1,75 @@
 <section class="container mx-auto">
-  <div class="flex flex-col mt-6 mx-1">
-    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+  <div class="flex flex-col md:mt-6 md:mx-1">
+    <!-- Desktop Table -->
+    <div class="hidden md:block -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
         <div class="overflow-hidden md:rounded-lg shadow-lg px-2">
           <table class="min-w-full divide-y">
-            <!-- head -->
             <thead class="bg-gray-50">
-              <tr class="">
+              <tr>
                 <th
-                  scope="col"
-                  class="py-3.5 px-2 text-sm px-bold-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
+                  class="py-3.5 px-2 text-sm font-bold text-left text-gray-500"
                 >
-                  <span>Service Name</span>
+                  Service Name
                 </th>
-
                 <th
-                  scope="col"
-                  class="px-12 py-3.5 text-sm fontboldl text-left rtl:text-right text-gray-500 dark:text-gray-500"
+                  class="px-12 py-3.5 text-sm font-bold text-left text-gray-500"
                 >
-                  <span>Plan Name</span>
+                  Plan Name
                 </th>
-
                 <th
-                  scope="col"
-                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
+                  class="px-4 py-3.5 text-sm font-bold text-left text-gray-500"
                 >
-                  <span>Price</span>
+                  Price
                 </th>
-
                 <th
-                  scope="col"
-                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
+                  class="px-4 py-3.5 text-sm font-bold text-left text-gray-500"
                 >
                   Currency
                 </th>
-
                 <th
-                  scope="col"
-                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
+                  class="px-4 py-3.5 text-sm font-bold text-left text-gray-500"
                 >
                   Status
                 </th>
                 <th
-                  scope="col"
-                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
+                  class="px-4 py-3.5 text-sm font-bold text-left text-gray-500"
                 >
                   Notes
                 </th>
-
                 <th
-                  scope="col"
-                  class="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500 dark:text-gray-500"
+                  class="px-4 py-3.5 text-sm font-bold text-left text-gray-500"
                 >
-                  Created at
+                  Created At
                 </th>
-
-                <th scope="col" class="relative py-3.5 px-4">
-                  <span class="sr-only">Edit</span>
-                </th>
+                <th class="py-3.5 px-4"></th>
               </tr>
             </thead>
-
-            <!-- body -->
             <tbody class="bg-white divide-y">
               @for (subscription of filteredSubscriptions(); track $index) {
               <tr>
-                <!-- service name -->
-                <td
-                  class="px-4 py-4 text-sm font-medium text-gray-500 dark:text-gray-500 whitespace-nowrap"
-                >
+                <td class="px-4 py-4 text-sm text-gray-500">
                   {{ subscription.service_name }}
                 </td>
-
-                <!-- plan name -->
-                <td
-                  class="px-12 py-4 text-sm font-medium text-gray-500 dark:text-gray-500 whitespace-nowrap"
-                >
+                <td class="px-12 py-4 text-sm text-gray-500">
                   {{ subscription.plan_name }}
                 </td>
-
-                <!-- price -->
-                <td
-                  class="px-4 py-4 text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap"
-                >
+                <td class="px-4 py-4 text-sm text-gray-500">
                   {{ subscription.price }}
                 </td>
-
-                <!-- currency -->
-                <td
-                  class="px-4 py-4 text-sm text-gray-600 dark:text-gray-500 whitespace-nowrap"
-                >
-                  <h2
-                    class="px-3 py-1 text-center text-xs text-indigo-500 rounded-full bg-indigo-100/60"
+                <td class="px-4 py-4 text-sm">
+                  <span
+                    class="px-3 py-1 text-xs text-indigo-500 bg-indigo-100/60 rounded-full"
                   >
                     {{ subscription.currency }}
-                  </h2>
+                  </span>
                 </td>
-
-                <!-- status -->
-                <td
-                  class="px-4 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-500"
-                >
+                <td class="px-4 py-4 text-sm">
                   <div
                     [ngClass]="
                       subscription.status === 'Active'
-                        ? 'bg-emerald-100/60'
-                        : 'bg-rose-100/60'
+                        ? 'bg-emerald-100/60 text-emerald-500'
+                        : 'bg-rose-100/60 text-rose-500'
                     "
                     class="inline-flex items-center px-3 py-1 rounded-full gap-x-2"
                   >
@@ -117,37 +81,21 @@
                       "
                       class="h-1.5 w-1.5 rounded-full"
                     ></span>
-
-                    <h2
-                      [ngClass]="
-                        subscription.status === 'Active'
-                          ? 'text-emerald-500'
-                          : 'text-rose-500'
-                      "
-                      class="text-sm font-normal"
-                    >
-                      {{ subscription.status }}
-                    </h2>
+                    <span class="text-sm font-normal">{{
+                      subscription.status
+                    }}</span>
                   </div>
                 </td>
-
-                <!-- notes -->
                 <td
-                  class="px-4 py-4 text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs hover:cursor-pointer"
+                  class="px-4 py-4 text-sm text-gray-500 overflow-hidden text-ellipsis max-w-xs"
                   [attr.title]="subscription.notes"
                 >
                   {{ subscription.notes }}
                 </td>
-
-                <!-- created at -->
-                <td
-                  class="px-4 py-4 text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap"
-                >
+                <td class="px-4 py-4 text-sm text-gray-500">
                   {{ subscription.created_at | date : "yyyy-MM-dd" }}
                 </td>
-
-                <!-- actions -->
-                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                <td class="px-4 py-4 text-sm">
                   <div class="flex items-center gap-x-6">
                     <button
                       (click)="onDelete(subscription)"
@@ -168,7 +116,6 @@
                         />
                       </svg>
                     </button>
-
                     <button
                       (click)="onEdit(subscription)"
                       class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-500 hover:text-yellow-500 focus:outline-none"
@@ -197,69 +144,86 @@
         </div>
       </div>
     </div>
+
+    <!-- Mobile Card View -->
+    <div class="md:hidden flex flex-col gap-4 mt-4">
+      @for (subscription of filteredSubscriptions(); track $index) {
+      <div class="bg-white shadow-md rounded-xl p-4 border border-gray-100">
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-lg font-semibold text-gray-700">
+            {{ subscription.service_name }}
+          </h3>
+          <span
+            [ngClass]="
+              subscription.status === 'Active'
+                ? 'bg-emerald-100 text-emerald-600'
+                : 'bg-rose-100 text-rose-600'
+            "
+            class="px-2 py-1 text-xs font-medium rounded-full"
+          >
+            {{ subscription.status }}
+          </span>
+        </div>
+
+        <p class="flex items-center justify-between text-sm text-gray-500">
+          <span class="font-semibold text-gray-700">Plan:</span>
+          {{ subscription.plan_name }}
+        </p>
+
+        <p class="flex items-center justify-between text-sm text-gray-500">
+          <span class="font-semibold text-gray-700">Price:</span>
+          {{ subscription.price }} {{ subscription.currency }}
+        </p>
+
+        <p class="flex items-center justify-between text-sm text-gray-500">
+          <span class="font-semibold text-gray-700">Notes:</span>
+          {{ subscription.notes || "—" }}
+        </p>
+
+        <p class="flex items-center justify-between text-sm text-gray-500 mt-2">
+          <span class="font-semibold text-gray-700">Created:</span>
+          {{ subscription.created_at | date : "yyyy-MM-dd" }}
+        </p>
+
+        <div class="flex items-center justify-end gap-4 mt-3 text-[15px]">
+          <button
+            (click)="onEdit(subscription)"
+            class="text-yellow-500 hover:text-yellow-600"
+          >
+            Edit
+          </button>
+          <button
+            (click)="onDelete(subscription)"
+            class="text-red-500 hover:text-red-600"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+      }
+    </div>
   </div>
 
-  <div class="flex items-center justify-between mt-6">
+  <!-- Pagination -->
+  <!-- <div class="flex items-center justify-between mt-6">
     <a
       href="#"
-      class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+      class="flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-5 h-5 rtl:-scale-x-100"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-        />
-      </svg>
-
-      <span> previous </span>
+      ← Previous
     </a>
-
     <div class="items-center hidden lg:flex gap-x-3">
       <a
         href="#"
-        class="px-2 py-1 text-sm text-blue-500 rounded-md bg-blue-100/60"
+        class="px-2 py-1 text-sm text-blue-500 bg-blue-100/60 rounded-md"
         >1</a
       >
     </div>
-
     <a
       href="#"
-      class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+      class="flex items-center px-5 py-2 text-sm text-gray-700 bg-white border rounded-md gap-x-2 hover:bg-gray-100"
     >
-      <span> Next </span>
-
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-5 h-5 rtl:-scale-x-100"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-        />
-      </svg>
+      Next →
     </a>
-  </div>
+  </div> -->
 </section>
-
-<!-- <p class="px-3 py-1 text-xs text-indigo-500 rounded-full bg-indigo-100/60">
-  Design
-</p>
-<p class="px-3 py-1 text-xs text-blue-500 rounded-full bg-blue-100/60">
-  Product
-</p>
-<p class="px-3 py-1 text-xs text-pink-500 rounded-full bg-pink-100/60">
-  Marketing
-</p> -->
