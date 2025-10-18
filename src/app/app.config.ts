@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngneat/hot-toast';
+import { provideServiceWorker } from '@angular/service-worker';
 import { routes } from './app.routes';
 import {
   provideHttpClient,
@@ -25,6 +26,10 @@ export const appConfig: ApplicationConfig = {
       visibleToasts: 1,
       duration: 700,
       position: 'bottom-center',
+    }),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: true,
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
 };
