@@ -5,13 +5,13 @@
   <div class="flex items-center">
     <div
       [ngClass]="{ hidden: !status() }"
-      class="w-screen md:w-[20vw] bg-primary h-screen md:h-[60vh]"
+      class="w-screen md:w-[15vw] bg-primary h-screen"
     >
       <app-navbar (toggleNav)="toggleNav($event)" [isOpen]="status()" />
     </div>
 
     <div
-      class="text-textColor bg-white md:w-[70vw] w-screen overflow-hidden h-screen md:h-[60vh] p-5"
+      class="text-textColor bg-white md:w-[75vw] w-screen overflow-hidden h-screen p-5"
     >
       <div class="rounded-xl border border-gray-400 block md:hidden mb-4">
         <app-search />

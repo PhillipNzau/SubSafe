@@ -11,10 +11,19 @@
   --color-shadow: #f7f7f7;
   --color-text: #262e49;
 
-  /* You can also define shades for your custom colors */
-  /* --color-primary-light: #ff8d73; */
   --color-primary-dark: #5b61f3;
   --color-primary-light: hsl(233, 91%, 80%);
+}
+
+@layer base {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 }
 
 * {
