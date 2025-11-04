@@ -91,9 +91,10 @@
           >
             <input
               formControlName="otp"
+              pattern="[0-9]*"
               id="otp"
               placeholder="Enter Otp"
-              type="text"
+              type="tel"
               class="w-full py-2 outline-none placeholder:text-gray-400"
               (input)="onOtpInput($event)"
             />
