@@ -2,21 +2,25 @@
   <div class="w-full h-16 bg-primary-dark px-5">
     <app-top-bar (toggleNav)="toggleNav($event)" [isOpen]="status()" />
   </div>
+
   <div class="flex items-center">
+    <!-- Sidebar -->
     <div
-      [ngClass]="{ hidden: !status() }"
+      [ngClass]="{ 'hidden md:block': !status() }"
       class="w-screen md:w-[15vw] bg-primary h-screen"
     >
       <app-navbar (toggleNav)="toggleNav($event)" [isOpen]="status()" />
     </div>
 
-    <main
+    <!-- Main content -->
+    <div
+      [ngClass]="{ 'hidden md:block': status() }"
       class="text-textColor bg-white md:w-[75vw] w-screen overflow-hidden h-screen p-5"
     >
       <div class="rounded-xl border border-gray-400 block md:hidden mb-4">
         <app-search />
       </div>
       <router-outlet />
-    </main>
+    </div>
   </div>
 </div>
