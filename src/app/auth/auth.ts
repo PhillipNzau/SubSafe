@@ -56,6 +56,13 @@ export class Auth {
     this.isVerifyOtp.set(false);
   }
 
+  onOtpInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const noSpaces = input.value.replace(/\s+/g, ''); // remove all spaces
+    input.value = noSpaces;
+    this.verifyOtpForm.get('otp')?.setValue(noSpaces, { emitEvent: false }); // keep form in sync
+  }
+
   // login user
   submitLoginForm() {
     const loadingToast = this.toastService.loading('Processing...');
